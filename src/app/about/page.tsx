@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Star } from "lucide-react";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -19,42 +19,52 @@ const staggerContainer: Variants = {
 
 export default function About() {
   return (
-    <section className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
+    <section className="py-16 md:py-24 px-6 max-w-7xl mx-auto overflow-hidden">
+      {/* Page Title Section */}
       <motion.div 
-        className="grid md:grid-cols-2 gap-16 items-center"
+        className="text-center mb-16 md:mb-24"
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+      >
+        <h1 className="text-5xl md:text-7xl font-serif text-brand-navy mb-6">Our Legacy</h1>
+        
+        {/* Star Underline Divider */}
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-px w-12 md:w-24 bg-brand-gold/40"></div>
+          <Star className="w-5 h-5 text-brand-gold fill-brand-gold" />
+          <div className="h-px w-12 md:w-24 bg-brand-gold/40"></div>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={staggerContainer}
       >
-        {/* Left Side: Visual Element with New Image */}
+        {/* Left Side: Visual Element */}
         <motion.div 
           variants={fadeInUp}
-          className="relative aspect-square bg-brand-navy rounded-2xl overflow-hidden border-2 border-brand-gold/30 group"
+          className="relative aspect-square md:aspect-4/5 lg:aspect-square bg-brand-navy rounded-2xl overflow-hidden border-2 border-brand-gold/30 group shadow-2xl"
         >
-          {/* Main Image replaces the decorative 'A' */}
           <Image
             src="/about-vision.jpg"
-            alt="Ayana Visionary Event Design"
+            alt="Ayana General Trading Excellence"
             fill
             className="object-cover transition-transform duration-1000 group-hover:scale-110"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
           
-          {/* Overlay Content - Now sits on top of the image */}
-          <div className="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-brand-navy/90 via-brand-navy/20 to-transparent">
+          <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 bg-linear-to-t from-brand-navy/90 via-brand-navy/20 to-transparent">
             <motion.p 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-brand-gold font-serif text-2xl"
+              className="text-brand-gold font-serif text-xl md:text-3xl"
             >
               Est. 2024
             </motion.p>
             <motion.p 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6 }}
-              className="text-white/80 text-sm uppercase tracking-[0.3em]"
+              className="text-white/80 text-xs md:text-sm uppercase tracking-[0.3em]"
             >
               Excellence defined
             </motion.p>
@@ -62,53 +72,52 @@ export default function About() {
         </motion.div>
 
         {/* Right Side: Text Content */}
-        <motion.div variants={fadeInUp}>
-          <h4 className="text-brand-gold font-semibold uppercase tracking-widest text-xs mb-4">
-            Our Legacy
-          </h4>
-          <h2 className="text-4xl md:text-5xl mb-8 text-brand-navy leading-tight">
-            Sophistication in <br />
+        <motion.div variants={fadeInUp} className="flex flex-col">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 md:mb-8 text-brand-navy leading-tight">
+            Sophistication in <br className="hidden sm:block" />
             <span className="italic font-serif">every single detail.</span>
           </h2>
           
-          <div className="space-y-6 text-gray-600 leading-relaxed text-lg font-light">
+          <div className="space-y-4 md:space-y-6 text-gray-600 leading-relaxed text-base md:text-lg font-light">
             <p>
               Ayana General Trading isn&apos;t just a company; it&apos;s a commitment to excellence. 
-              Born from a vision to redefine the event landscape, we specialize in 
-              transforming spaces and creating atmospheres that resonate with your 
-              brand&apos;s prestige.
+              Born from a vision to redefine luxury experiences, we operate on two distinct pillars: 
+              masterfully curating high-end events and sourcing the world&apos;s finest coffee.
             </p>
             <p>
-              Whether it&apos;s a high-stakes corporate summit or an intimate bespoke 
-              celebration, our approach remains the same: meticulous planning, 
-              unparalleled design, and a touch of the extraordinary.
+              Whether it&apos;s orchestrating a flawless corporate summit, a bespoke celebration, 
+              or establishing robust global trade networks for premium coffee, 
+              our approach remains the same: meticulous planning and unparalleled execution.
             </p>
           </div>
 
           {/* Value List */}
           <motion.div 
-            className="mt-10 grid grid-cols-2 gap-4"
+            className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4"
             variants={staggerContainer}
           >
-            {["Premium Sourcing", "Flawless Logic", "Custom Decor", "Global Reach"].map((item) => (
-              <div key={item} className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-brand-gold" />
-                <span className="text-brand-navy font-medium text-sm uppercase tracking-wide">{item}</span>
+            {["Premium Events", "Flawless Execution", "Coffee Trading", "Global Reach"].map((item) => (
+              <div key={item} className="flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0" />
+                <span className="text-brand-navy font-medium text-xs md:text-sm uppercase tracking-wide">
+                  {item}
+                </span>
               </div>
             ))}
           </motion.div>
 
-          <div className="h-px w-full bg-brand-gold/30 my-10"></div>
+          <div className="h-px w-full bg-brand-gold/30 my-8 md:my-12"></div>
           
-          <motion.p 
-            className="font-serif italic text-2xl text-brand-navy relative"
-            whileHover={{ x: 10 }}
+          {/* Quote Section */}
+          <motion.div 
+            className="font-serif italic text-xl md:text-2xl text-brand-navy relative pl-6"
+            whileHover={{ x: 5 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <span className="text-brand-gold text-4xl absolute -left-6 -top-2 opacity-40">&ldquo;</span>
-            We organize, you celebrate.
-            <span className="text-brand-gold text-4xl absolute -bottom-6 opacity-40">&rdquo;</span>
-          </motion.p>
+            <span className="text-brand-gold text-4xl absolute left-0 -top-2 opacity-40">&ldquo;</span>
+            <p>We organize, you celebrate.</p>
+            <p className="mt-1 text-brand-gold">We source, you savor.</p>
+          </motion.div>
         </motion.div>
       </motion.div>
     </section>
