@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-brand-navy: #122244;
+  --color-brand-gold: #C8A153;
+  --color-brand-light: #F9FAFB;
+
+  /* Custom Font Mapping - Updated to Cormorant and Montserrat */
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+
+  /* Brand Gradients - Enhanced Metallic Reflection */
+  --background-image-shiny-gold: linear-gradient(
+    45deg, 
+    #BF953F 0%, 
+    #FCF6BA 30%, 
+    #B38728 50%, 
+    #FBF5B7 70%, 
+    #AA771C 100%
+  );
+}
+
+@layer base {
+  body {
+    /* Set Montserrat as default body font */
+    @apply bg-brand-light text-brand-navy font-sans antialiased;
+    letter-spacing: 0.02em;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    /* Set Cormorant as default heading font */
+    @apply font-serif;
+  }
+
+  /* Selection color for a premium touch */
+  ::selection {
+    background-color: var(--color-brand-gold);
+    color: white;
+  }
+}
+
+/* Custom utility for the "Gold Standard" buttons */
+@utility btn-gold {
+  @apply bg-shiny-gold text-brand-navy font-bold py-3 px-8 rounded shadow-lg 
+         hover:scale-105 hover:brightness-110 transition-all duration-300 
+         active:scale-95 flex items-center justify-center border border-white/20;
+}
+
+@layer utilities {
+  .text-shadow-gold {
+    text-shadow: 0 0 15px rgba(200, 161, 83, 0.4);
+  }
+
+  .glass-header {
+    @apply bg-white/70 backdrop-blur-md border-b border-brand-gold/10;
+  }
+}
+
+/* Custom Scrollbar - Sleek and Gold */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-brand-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-gold);
+  border-radius: 20px;
+}
+
+/* Smooth Scrolling for the entire app */
+html {
+  scroll-behavior: smooth;
+}
