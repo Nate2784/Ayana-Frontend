@@ -65,9 +65,10 @@ export default function Contact() {
                   <Phone className="w-5 h-5 text-brand-gold" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Call Us</p>
-                  <p className="text-base sm:text-lg">+251 955 388 008</p>
-                  <p className="text-base sm:text-lg">+251 911 108 922</p>
+                  <p>
+                    <a href="tel:+251911223344" className="hover:text-brand-gold transition-colors">+251 911 108 922</a><br/>
+                    <a href="tel:+251911556677" className="hover:text-brand-gold transition-colors">+251 955 388 008</a>
+                    </p>
                 </div>
               </div>
 
