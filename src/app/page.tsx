@@ -36,7 +36,7 @@ const services = [
     description: "From intimate garden ceremonies to grand ballroom galas, we curate weddings that are as unique as your love story. Our meticulous planning ensures every petal and playlist is perfectly placed.",
   },
   {
-    title: "Bespoke Birthdays",
+    title: "Birthdays",
     icon: Cake,
     image: "/birthday-service.jpg",
     description: "Milestones deserve to be celebrated in style. We handle everything from themed decor to gourmet catering, letting you focus on making memories with your loved ones.",
