@@ -75,7 +75,7 @@ export default function Home() {
             className="object-cover opacity-40"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/60 via-transparent to-brand-navy" />
+          <div className="absolute inset-0 bg-linear-to-b from-brand-navy/60 via-transparent to-brand-navy" />
         </motion.div>
 
         <motion.div 

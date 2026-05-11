@@ -71,7 +71,7 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4 }}
-              className="relative aspect-[4/5] rounded-2xl overflow-hidden group border border-gray-100 bg-brand-light"
+              className="relative aspect-4/5 rounded-2xl overflow-hidden group border border-gray-100 bg-brand-light"
             >
               <Image 
                 src={photo.src} 
@@ -101,7 +101,7 @@ export default function Gallery() {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-gold !px-12 !py-4 shadow-xl shadow-brand-gold/10"
+            className="btn-gold px-12! py-4! shadow-xl shadow-brand-gold/10"
           >
             Start Your Project
           </motion.button>
