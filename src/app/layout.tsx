@@ -3,8 +3,8 @@
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, ChevronUp, Phone } from "lucide-react";
+import { useState, useEffect } from "react";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({ 
@@ -20,6 +20,25 @@ const montserrat = Montserrat({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showScroll, setShowScroll] = useState(false);
+
+  // Handle Scroll Visibility for "Go to Top" button
+  useEffect(() => {
+    const checkScroll = () => {
+      if (!showScroll && window.scrollY > 400) {
+        setShowScroll(true);
+      } else if (showScroll && window.scrollY <= 400) {
+        setShowScroll(false);
+      }
+    };
+
+    window.addEventListener('scroll', checkScroll);
+    return () => window.removeEventListener('scroll', checkScroll);
+  }, [showScroll]);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -40,7 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-gold/10">
           <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
             
-            {/* BRAND LOGO */}
             <Link href="/" className="group flex items-center gap-2 md:gap-3 z-50">
               <span className="font-serif text-2xl md:text-3xl font-light tracking-[0.2em] transition-colors group-hover:text-brand-gold">
                 AYANA
@@ -60,7 +78,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </Link>
 
-            {/* DESKTOP NAVIGATION */}
             <nav className="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.25em]">
               {navItems.map((item) => (
                 <Link key={item.name} href={item.href} className="relative group py-1 overflow-hidden">
@@ -70,7 +87,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               ))}
             </nav>
 
-            {/* MOBILE TOGGLE & CTA */}
             <div className="flex items-center gap-4">
               <Link href="/contact" className="hidden sm:block btn-gold py-2! px-5! text-[9px] uppercase tracking-[0.2em]">
                 Book Consult
@@ -86,7 +102,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
 
-          {/* MOBILE OVERLAY */}
           <AnimatePresence>
             {isOpen && (
               <motion.div 
@@ -105,13 +120,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     {item.name}
                   </Link>
                 ))}
-                <Link 
-                  href="/contact" 
-                  onClick={() => setIsOpen(false)}
-                  className="btn-gold text-center py-3! text-[11px] uppercase tracking-widest"
-                >
-                  Request Consultation
-                </Link>
               </motion.div>
             )}
           </AnimatePresence>
@@ -147,10 +155,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
               <div>
                 <h4 className="font-sans font-bold text-white text-[10px] uppercase tracking-[0.3em] mb-6">Inquiries</h4>
-                <div className="space-y-4 text-sm text-gray-400">
+                <div className="space-y-5 text-sm text-gray-400">
                   <p className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Email</span>
                     Ayanageneraltrading@gmail.com
+                  </p>
+                  
+                  <p className="flex flex-col">
+                    <span className="text-[9px] text-brand-gold mb-1 uppercase">Phone</span>
+                    <a href="tel:+251911108922" className="hover:text-brand-gold transition-colors">+251 911 108 922</a>
+                    <a href="tel:+251955388008" className="hover:text-brand-gold transition-colors">+251 955 388 008</a>
                   </p>
                   <p className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Headquarters</span>
@@ -166,7 +180,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               
               <div className="flex gap-6 md:gap-8">
-                {['Instagram', 'LinkedIn'].map((social) => (
+                {['Instagram', 'Facebook'].map((social) => (
                   <a key={social} href="#" className="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-brand-gold transition-colors">
                     {social}
                   </a>
@@ -175,6 +189,54 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+
+        {/* GO TO TOP BUTTON */}
+        <AnimatePresence>
+          {showScroll && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.5, y: 20 }}
+              className="fixed bottom-8 right-8 z-50 flex flex-col items-center gap-1 group"
+            >
+              {/* HOVERING STAR WITH EFFECTS & JIGGLE */}
+              <motion.span
+                animate={{ 
+                  y: [0, -8, 0], // Floating motion
+                  opacity: [0.6, 1, 0.6], // Pulse effect
+                }}
+                transition={{ 
+                  y: { repeat: Infinity, duration: 3, ease: "easeInOut" },
+                  opacity: { repeat: Infinity, duration: 2 },
+                }}
+                // {/* JIGGLE EFFECT ON BUTTON HOVER */}
+                whileHover={{
+                  y: -15, // Float higher
+                  rotate: [0, -15, 15, -15, 0], // Jiggle rotation
+                  transition: { 
+                    rotate: { duration: 0.5, repeat: Infinity, repeatType: "mirror" },
+                    opacity: { duration: 0.5, repeat: Infinity } // Fast pulse
+                  }
+                }}
+                className="text-brand-gold text-base group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.8)]"
+              >
+                ★
+              </motion.span>
+
+              {/* MAIN BUTTON */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={scrollToTop}
+                className="bg-brand-gold text-brand-navy p-3 rounded-full shadow-2xl border border-brand-gold hover:bg-transparent hover:text-brand-gold transition-colors duration-300 relative"
+                aria-label="Scroll to top"
+              >
+                <ChevronUp size={24} className="group-hover:-translate-y-1 transition-transform duration-300" />
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
       </body>
     </html>
   );
