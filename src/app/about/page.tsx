@@ -54,28 +54,53 @@ export default function About() {
       >
         {/* Left Side: Story Visual */}
         <motion.div 
-          variants={fadeInUp}
-          className="relative aspect-5/4 md:aspect-4/5 lg:aspect-square bg-brand-gold rounded-2xl overflow-hidden border border-brand-gold/20 group shadow-2xl"
-        >
-          <Image
-            src="/about-vision.jpg" 
-            alt="Ayana General Trading Excellence"
-            fill
-            className="object-cover transition-transform duration-1000 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority
-          />
-          
-          {/* DECREASED OPACITY GOLD OVERLAY */}
-          {/* Changed from /60 to /20 for a much more subtle effect */}
-          <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 bg-linear-to-t from-brand-gold/20 via-transparent to-transparent z-10" />
+  variants={fadeInUp}
+  className="relative aspect-square sm:aspect-5/4 md:aspect-4/5 lg:aspect-square bg-brand-gold rounded-2xl overflow-hidden border border-brand-gold/20 group shadow-2xl"
+>
+  {/* Image with subtle Zoom */}
+  <Image
+    src="/about-vision.jpg" 
+    alt="Ayana General Trading Excellence"
+    fill
+    className="object-cover transition-transform duration-2000 ease-out group-hover:scale-110"
+    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+    priority
+  />
+  
+  {/* Atmospheric Overlay */}
+  <div className="absolute inset-0 bg-linear-to-t from-brand-navy/90 via-transparent to-transparent z-10 transition-colors duration-700 group-hover:from-brand-gold/30" />
 
-          {/* Text Content */}
-          <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 z-20">
-            <p className="text-brand-gold font-serif text-xl md:text-3xl">Est. 2026</p> 
-            <p className="text-brand-navy text-xs md:text-sm uppercase tracking-[0.3em]">Excellence defined</p>
-          </div>
-        </motion.div>
+  {/* Static Text Content with Responsive Scaling */}
+  <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10 md:p-12 z-20">
+    
+    {/* Animated Decorative Line - Slightly smaller on mobile */}
+    <motion.div 
+      className="h-px md:h-0.5 w-8 md:w-12 bg-brand-gold mb-3 md:mb-4 rounded-full"
+      initial={{ scaleX: 0 }}
+      whileInView={{ scaleX: 1 }}
+      viewport={{ once: true }}
+      style={{ originX: 0 }}
+      transition={{ delay: 0.6, duration: 0.8 }}
+    />
+    
+    <div>
+      {/* text-xl: mobile 
+        sm:text-2xl: tablet
+        md:text-4xl: desktop 
+      */}
+      <p className="text-brand-gold font-serif text-xl sm:text-2xl md:text-4xl drop-shadow-lg transition-all">
+        Est. 2026
+      </p> 
+      
+      {/* text-[10px]: mobile
+        md:text-sm: desktop
+      */}
+      <p className="text-white/90 text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] font-medium mt-1 md:mt-2">
+        Excellence defined
+      </p>
+    </div>
+  </div>
+</motion.div>
 
         {/* Right Side: Text Content */}
         <motion.div variants={fadeInUp} className="flex flex-col space-y-6 md:space-y-8">
@@ -130,7 +155,7 @@ export default function About() {
           </p>
 
           <p className="text-brand-gold italic font-serif text-xl md:text-2xl pt-6 border-t border-brand-gold/30">
-            &ldquo;We don&apos;t just manage transactions or curate events. We build trust and craft legacies, whether it&apos;s a world-class summit, family or a premium coffee trade.&rdquo;
+            &ldquo;We don&apos;t just manage transactions or curate events. We build trust and craft legacies, whether it&apos;s a world-class summit, family events or a premium coffee trade.&rdquo;
           </p>
         </motion.div>
 
