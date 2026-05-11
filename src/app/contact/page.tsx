@@ -66,8 +66,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Call Us</p>
-                  <p className="text-base sm:text-lg">+251 911 123 456</p>
-                  <p className="text-base sm:text-lg">+251 900 123 456</p>
+                  <p className="text-base sm:text-lg">+251 955 388 008</p>
+                  <p className="text-base sm:text-lg">+251 911 108 922</p>
                 </div>
               </div>
 
@@ -76,8 +76,12 @@ export default function Contact() {
                   <Mail className="w-5 h-5 text-brand-gold" />
                 </div>
                 <div className="break-all">
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Email Inquiries</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Event Inquiries</p>
                   <p className="text-base sm:text-lg">Ayanageneraltrading@gmail.com</p>
+                  <div className="break-all">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Trade Inquiries</p>
+                  <p className="text-base sm:text-lg">Ayanageneraltrading@gmail.com</p>
+                </div>
                 </div>
               </div>
 
@@ -87,7 +91,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Our Location</p>
-                  <p className="text-base sm:text-lg"><br />Addis Ababa, Ethiopia</p>
+                  <p className="text-base sm:text-lg">Addis Ababa, Ethiopia</p>
                 </div>
               </div>
 
