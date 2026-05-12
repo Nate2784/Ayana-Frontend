@@ -2,6 +2,7 @@
 
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronUp, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -129,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
 
-        {/* FOOTER */}
+       {/* FOOTER */}
         <footer className="bg-brand-navy text-brand-light pt-16 md:pt-24 pb-12 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-brand-gold to-transparent opacity-40"></div>
           
@@ -138,6 +139,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="sm:col-span-2">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="font-serif text-3xl md:text-4xl font-light tracking-widest text-brand-gold">AYANA</span>
+                  {/* Assuming StarIcon is defined elsewhere in your project */}
                   <StarIcon />
                 </div>
                 <p className="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-sm">
@@ -148,6 +150,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div>
                 <h4 className="font-sans font-bold text-white text-[10px] uppercase tracking-[0.3em] mb-6">Explore</h4>
                 <ul className="space-y-3 text-sm text-gray-400">
+                  <li><Link href="/" className="hover:text-brand-gold transition-colors">Home</Link></li>
                   <li><Link href="/about" className="hover:text-brand-gold transition-colors">Our Legacy</Link></li>
                   <li><Link href="/contact" className="hover:text-brand-gold transition-colors">Contact Us</Link></li>
                 </ul>
@@ -156,20 +159,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div>
                 <h4 className="font-sans font-bold text-white text-[10px] uppercase tracking-[0.3em] mb-6">Inquiries</h4>
                 <div className="space-y-5 text-sm text-gray-400">
-                  <p className="flex flex-col">
+                  <div className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Email</span>
-                    Ayanageneraltrading@gmail.com
-                  </p>
+                    <a href="mailto:Ayanaevents16@gmail.com" className="hover:text-brand-gold transition-colors truncate">Ayanaevents16@gmail.com</a>
+                    <a href="mailto:Ayanageneraltrading@gmail.com" className="hover:text-brand-gold transition-colors truncate">Ayanageneraltrading@gmail.com</a>
+                  </div>
                   
-                  <p className="flex flex-col">
+                  <div className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Phone</span>
                     <a href="tel:+251911108922" className="hover:text-brand-gold transition-colors">+251 911 108 922</a>
                     <a href="tel:+251955388008" className="hover:text-brand-gold transition-colors">+251 955 388 008</a>
-                  </p>
-                  <p className="flex flex-col">
+                  </div>
+                  <div className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Headquarters</span>
-                    Addis Ababa, Ethiopia
-                  </p>
+                    <p>Addis Ababa, Ethiopia</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -180,11 +184,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               
               <div className="flex gap-6 md:gap-8">
-                {['Instagram', 'Facebook'].map((social) => (
-                  <a key={social} href="#" className="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-brand-gold transition-colors">
-                    {social}
-                  </a>
-                ))}
+                <a 
+                  href="https://www.facebook.com/share/1AHbgG7DvU/?mibextid=wwXIfr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-brand-gold transition-colors"
+                >
+                  Facebook
+                </a>
               </div>
             </div>
           </div>
