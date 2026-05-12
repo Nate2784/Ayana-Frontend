@@ -50,8 +50,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <title>Ayana General Trading | Premium Excellence</title>
-        <meta name="description" content="Exclusive event organizing and general trading services." />
+        <title>Ayana General Trading | Premium Event Planning & Trading Ethiopia</title>
+        <meta name="description" content="Ayana General Trading is Ethiopia's premier event planning and management agency. We specialize in luxury wedding coordination, corporate events, and international trading services in Addis Ababa." />
+        <meta name="keywords" content="Ayana General Trading, Event Planning Ethiopia, Wedding Planner Addis Ababa, Corporate Events Ethiopia, Coffee Trading, Ayana Events, Ayana, event planer,ayana coffee, ethiopian coffee, coffee, event" />
+        
+        {/* Open Graph / Facebook SEO */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ayanageneraltrading.com.et/" />
+        <meta property="og:title" content="Ayana General Trading | Premium Event Planning & Trading" />
+        <meta property="og:description" content="Bespoke event organizing and premium general trading services in Addis Ababa, Ethiopia. Expert wedding and corporate planners." />
+        <meta property="og:image" content="https://www.ayanageneraltrading.com.et/og-image.jpg" />
+
+        {/* Twitter SEO */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://www.ayanageneraltrading.com.et/" />
+        <meta property="twitter:title" content="Ayana General Trading | Event Planning & Trading" />
+        <meta property="twitter:description" content="Luxury event planning and global trading excellence based in Addis Ababa, Ethiopia." />
+
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={`${montserrat.variable} ${cormorant.variable} min-h-screen flex flex-col bg-brand-light font-sans antialiased text-brand-navy`}>
@@ -139,7 +154,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="sm:col-span-2">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="font-serif text-3xl md:text-4xl font-light tracking-widest text-brand-gold">AYANA</span>
-                  {/* Assuming StarIcon is defined elsewhere in your project */}
                   <StarIcon />
                 </div>
                 <p className="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-sm">
@@ -206,23 +220,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               exit={{ opacity: 0, scale: 0.5, y: 20 }}
               className="fixed bottom-8 right-8 z-50 flex flex-col items-center gap-1 group"
             >
-              {/* HOVERING STAR WITH EFFECTS & JIGGLE */}
               <motion.span
                 animate={{ 
-                  y: [0, -8, 0], // Floating motion
-                  opacity: [0.6, 1, 0.6], // Pulse effect
+                  y: [0, -8, 0],
+                  opacity: [0.6, 1, 0.6],
                 }}
                 transition={{ 
                   y: { repeat: Infinity, duration: 3, ease: "easeInOut" },
                   opacity: { repeat: Infinity, duration: 2 },
                 }}
-                // {/* JIGGLE EFFECT ON BUTTON HOVER */}
                 whileHover={{
-                  y: -15, // Float higher
-                  rotate: [0, -15, 15, -15, 0], // Jiggle rotation
+                  y: -15,
+                  rotate: [0, -15, 15, -15, 0],
                   transition: { 
                     rotate: { duration: 0.5, repeat: Infinity, repeatType: "mirror" },
-                    opacity: { duration: 0.5, repeat: Infinity } // Fast pulse
+                    opacity: { duration: 0.5, repeat: Infinity }
                   }
                 }}
                 className="text-brand-gold text-base group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.8)]"
@@ -230,7 +242,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 ★
               </motion.span>
 
-              {/* MAIN BUTTON */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
