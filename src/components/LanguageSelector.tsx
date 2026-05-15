@@ -34,71 +34,97 @@ export default function LanguageSelector() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Initialize Google Translate Script silently & Sync State
+  // Set up Google Translate Widget Initializer Function
+  const initGoogleTranslate = useCallback(() => {
+    window.googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          includedLanguages: "en,am,om",
+          autoDisplay: false,
+        },
+        "google_translate_element"
+      );
+    };
+  }, []);
+
+  // Core helper to inject or reinject the script tag when Google crashes the DOM
+  const injectGoogleScript = useCallback(() => {
+    // Remove existing script if it got corrupted or stuck
+    const oldScript = document.getElementById("google-translate-script");
+    if (oldScript) oldScript.remove();
+
+    initGoogleTranslate();
+
+    const script = document.createElement("script");
+    script.id = "google-translate-script";
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script.async = true;
+    document.body.appendChild(script);
+  }, [initGoogleTranslate]);
+
+  // Initial Sync State and Script load
   useEffect(() => {
-    // Sync initial state with Google Translate cookie to persist UI across reloads
     const match = document.cookie.match(/(?:^|;)\s*googtrans=([^;]*)/);
     if (match && match[1]) {
       const activeLang = match[1].split("/").pop();
       if (activeLang) setCurrentLang(activeLang);
+    } else {
+      setCurrentLang("en");
     }
 
-    const addGoogleTranslateScript = () => {
-      if (window.google?.translate) return;
+    injectGoogleScript();
+  }, [injectGoogleScript]);
 
-      window.googleTranslateElementInit = () => {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: "en",
-            includedLanguages: "en,am,om",
-            autoDisplay: false,
-          },
-          "google_translate_element"
-        );
-      };
-
-      // Prevent injecting duplicate scripts into the DOM
-      if (!document.getElementById("google-translate-script")) {
-        const script = document.createElement("script");
-        script.id = "google-translate-script";
-        script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-        script.async = true;
-        document.body.appendChild(script);
-      }
-    };
-
-    addGoogleTranslateScript();
-  }, []);
-
-  // Bulletproof Handle Language Change
+  // Handle Language Change with structural DOM Restoration
   const handleLanguageChange = useCallback((langCode: string) => {
     setCurrentLang(langCode);
     setIsOpen(false);
 
-    // 1. Manually force update the Google Translate Cookies to clear dynamic rate limits
-    document.cookie = `googtrans=/en/${langCode}; path=/;`;
-    document.cookie = `googtrans=/en/${langCode}; path=/; domain=.${window.location.hostname};`;
+    const date = new Date();
+    date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+    const expires = "; expires=" + date.toUTCString();
+
+    // Explicitly set cookie strings to prevent Google from clearing them completely on English transition
+    const targetTransValue = `/en/${langCode}`;
+    document.cookie = `googtrans=${targetTransValue}; path=/;${expires}`;
+    document.cookie = `googtrans=${targetTransValue}; path=/; domain=.${window.location.hostname};${expires}`;
+
+    // Fix: If going from another language -> English -> another language, Google often deletes the target dropdown container.
+    // If it's missing, we force-rebuild Google's core context elements instantly.
+    let googleSelect = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+    if (!googleSelect) {
+      injectGoogleScript();
+    }
 
     let attempts = 0;
     const triggerTranslation = () => {
-      const googleSelect = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+      googleSelect = document.querySelector(".goog-te-combo") as HTMLSelectElement;
       
       if (googleSelect) {
-        // 2. Hard override values
         googleSelect.value = langCode;
-        
-        // 3. Dispatch full browser sequence to bypass asynchronous blockages from Google's observer
         googleSelect.dispatchEvent(new Event("focus", { bubbles: true }));
         googleSelect.dispatchEvent(new Event("change", { bubbles: true }));
         googleSelect.dispatchEvent(new Event("blur", { bubbles: true }));
-      } else if (attempts < 15) {
+        
+        // Clean up visual artifact tracking left over from previous language changes
+        if (langCode === "en") {
+          document.querySelectorAll(".goog-te-font-inherit").forEach((el) => {
+            el.classList.remove("goog-te-font-inherit");
+          });
+        }
+      } else if (attempts < 20) {
         attempts++;
-        setTimeout(triggerTranslation, 80);
+        setTimeout(triggerTranslation, 50);
       }
     };
 
     triggerTranslation();
-  }, []);
+
+    if (typeof window !== "undefined" && window.google?.translate) {
+      window.dispatchEvent(new Event("hashchange"));
+    }
+  }, [injectGoogleScript]);
 
   const activeLangLabel = languages.find((l) => l.code === currentLang)?.label || "EN";
 
@@ -109,15 +135,12 @@ export default function LanguageSelector() {
 
       {/* Global CSS Inject to completely hide Google Translate's top bar banner */}
       <style jsx global>{`
-        .skiptranslate, .goog-te-banner-frame, #goog-gt-tt {
+        .skiptranslate, .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame {
           display: none !important;
         }
         body {
           top: 0px !important;
           position: static !important;
-        }
-        .goog-te-balloon-frame {
-          display: none !important;
         }
       `}</style>
 
