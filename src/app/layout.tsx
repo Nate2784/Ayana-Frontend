@@ -1,11 +1,13 @@
 "use client";
 
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
+import LanguageSelector from "@/components/LanguageSelector"; // Adjust path based on your folder structure
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronUp, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({ 
@@ -20,6 +22,7 @@ const montserrat = Montserrat({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
 
@@ -43,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
+    { name: 'About US', href: '/about' },
     { name: 'Contact', href: '/contact' }
   ];
 
@@ -76,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
             
             <Link href="/" className="group flex items-center gap-2 md:gap-3 z-50">
-              <span className="font-serif text-2xl md:text-3xl font-light tracking-[0.2em] transition-colors group-hover:text-brand-gold">
+              <span className="font-serif  notranslate text-2xl md:text-3xl font-light tracking-[0.2em] transition-colors group-hover:text-brand-gold">
                 AYANA
               </span>
               <div className="flex gap-0.5 items-center mb-1">
@@ -94,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </Link>
 
-            <nav className="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.25em]">
+            <nav className="hidden notranslate md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.25em]">
               {navItems.map((item) => (
                 <Link key={item.name} href={item.href} className="relative group py-1 overflow-hidden">
                   <span className="group-hover:text-brand-gold transition-colors duration-300">{item.name}</span>
@@ -104,9 +107,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
 
             <div className="flex items-center gap-4">
-              <Link href="/contact" className="hidden sm:block btn-gold py-2! px-5! text-[9px] uppercase tracking-[0.2em]">
-                Book Consult
-              </Link>
+              <LanguageSelector/>
+  
+              {pathname !== "/contact" && (
+                <Link href="/contact" className="hidden sm:block btn-gold py-2! px-5! text-[9px] uppercase tracking-[0.2em]">
+                  Book Consult
+                </Link>
+              )}
               
               <button 
                 onClick={() => setIsOpen(!isOpen)}
@@ -153,7 +160,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
               <div className="sm:col-span-2">
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="font-serif text-3xl md:text-4xl font-light tracking-widest text-brand-gold">AYANA</span>
+                  <span className="font-serif text-3xl md:text-4xl font-light tracking-widest text-brand-gold notranslate">AYANA</span>
                   <StarIcon />
                 </div>
                 <p className="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-sm">
@@ -164,9 +171,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div>
                 <h4 className="font-sans font-bold text-white text-[10px] uppercase tracking-[0.3em] mb-6">Explore</h4>
                 <ul className="space-y-3 text-sm text-gray-400">
-                  <li><Link href="/" className="hover:text-brand-gold transition-colors">Home</Link></li>
-                  <li><Link href="/about" className="hover:text-brand-gold transition-colors">Our Legacy</Link></li>
-                  <li><Link href="/contact" className="hover:text-brand-gold transition-colors">Contact Us</Link></li>
+                  <li><Link href="/" className="hover:text-brand-gold transition-colors notranslate">Home</Link></li>
+                  <li><Link href="/about" className="hover:text-brand-gold transition-colors notranslate">Our Legacy</Link></li>
+                  <li><Link href="/contact" className="hover:text-brand-gold transition-colors notranslate">Contact Us</Link></li>
                 </ul>
               </div>
 
@@ -175,14 +182,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div className="space-y-5 text-sm text-gray-400">
                   <div className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Email</span>
-                    <a href="mailto:Ayanaevents16@gmail.com" className="hover:text-brand-gold transition-colors truncate">Ayanaevents16@gmail.com</a>
-                    <a href="mailto:Ayanageneraltrading@gmail.com" className="hover:text-brand-gold transition-colors truncate">Ayanageneraltrading@gmail.com</a>
+                    <a href="mailto:Ayanaevents16@gmail.com" className="hover:text-brand-gold transition-colors truncate notranslate">Ayanaevents16@gmail.com</a>
+                    <a href="mailto:Ayanageneraltrading@gmail.com" className="hover:text-brand-gold transition-colors truncate notranslate">Ayanageneraltrading@gmail.com</a>
                   </div>
                   
                   <div className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Phone</span>
-                    <a href="tel:+251911108922" className="hover:text-brand-gold transition-colors">+251 911 108 922</a>
-                    <a href="tel:+251955388008" className="hover:text-brand-gold transition-colors">+251 955 388 008</a>
+                    <a href="tel:+251911108922" className="hover:text-brand-gold transition-colors notranslate">+251 911 108 922</a>
+                    <a href="tel:+251955388008" className="hover:text-brand-gold transition-colors notranslate">+251 955 388 008</a>
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[9px] text-brand-gold mb-1 uppercase">Headquarters</span>

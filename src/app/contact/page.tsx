@@ -177,7 +177,7 @@ export default function Contact() {
               <div className="space-y-4">
                 <div>
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Event Inquiries</p>
-                  <a href="mailto:Ayanaevents16@gmail.com" className="hover:text-brand-gold transition-colors">Ayanaevents16@gmail.com</a>
+                  <a href="mailto:Ayanaevents16@gmail.com" className="hover:text-brand-gold transition-colors notranslate">Ayanaevents16@gmail.com</a>
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Trade Inquiries</p>
@@ -218,7 +218,7 @@ export default function Contact() {
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest text-gray-500 ml-1">Full Name</label>
                 <input 
-                  name="name" required type="text" placeholder="John Doe"
+                  name="name" required type="text" placeholder="Nate dagne"
                   value={name} onChange={(e) => setName(e.target.value)} onKeyDown={handleNameKeyDown}
                   className={`w-full p-4 border rounded-xl bg-brand-light focus:outline-none transition-all ${errors.name ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-100 focus:ring-2 focus:ring-brand-gold/50'}`} 
                 />
@@ -227,7 +227,7 @@ export default function Contact() {
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest text-gray-500 ml-1">Email Address *</label>
                 <input 
-                  name="email" required type="email" placeholder="john@example.com" 
+                  name="email" required type="email" placeholder="nate@example.com" 
                   value={email} onChange={(e) => setEmail(e.target.value)}
                   className={`w-full p-4 border rounded-xl bg-brand-light focus:outline-none transition-all ${errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-100 focus:ring-2 focus:ring-brand-gold/50'}`} 
                 />

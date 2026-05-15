@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
-import { MoveRight, Star, Cake, Briefcase, Music, Coffee, Heart, Ribbon} from "lucide-react"; 
+import { MoveRight, Star, Cake, Briefcase, Music, Coffee, Ribbon } from "lucide-react"; 
 
 // Animation presets
 const fadeInUp: Variants = {
@@ -59,9 +59,8 @@ export default function Home() {
   return (
     <div className="w-full flex flex-col items-center">
       
-    {/* 1. THE HERO EXPERIENCE */}
+      {/* 1. THE HERO EXPERIENCE */}
       <section className="relative w-full h-screen flex items-center justify-center bg-brand-navy overflow-hidden">
-        {/* Backdrop & Content remain same... */}
         <motion.div 
           className="absolute inset-0 z-0"
           initial={{ scale: 1.1 }}
@@ -72,6 +71,7 @@ export default function Home() {
             src="/event-hero.jpg" 
             alt="Luxury Event Backdrop"
             fill
+            sizes="100vw"
             className="object-cover opacity-40"
             priority
           />
@@ -144,7 +144,6 @@ export default function Home() {
               ease: "easeInOut" 
             }}
           >
-            {/* Using a simple ChevronDown from Lucide if you have it, otherwise a clean SVG */}
             <svg 
               width="24" 
               height="24" 
@@ -167,6 +166,7 @@ export default function Home() {
         <motion.div 
           className="max-w-7xl mx-auto text-center"
           initial="hidden"
+          animate="visible"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={staggerContainer}
@@ -194,7 +194,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-{/* 3. OUR SERVICES (Grid Style) */}
+      {/* 3. OUR SERVICES (Grid Style) */}
       <section className="w-full py-28 px-6 bg-brand-light">
         <motion.div 
           className="max-w-7xl mx-auto"
@@ -223,7 +223,6 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl mb-4 font-serif text-brand-navy leading-tight">{service.title}</h3>
                 
-                {/* Truncated description using line-clamp */}
                 <p className="text-gray-600 leading-relaxed font-light text-sm line-clamp-3">
                   {service.description}
                 </p>
@@ -241,21 +240,19 @@ export default function Home() {
               
               {/* Image Container with Brand Navy Overlay */}
               <motion.div 
-                className="w-full md:w-1/2 relative aspect-4/3 rounded-3xl overflow-hidden shadow-2xl group" // added 'group' for hover trigger
+                className="w-full md:w-1/2 relative aspect-4/3 rounded-3xl overflow-hidden shadow-2xl group"
                 initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                {/* 1. The Image */}
                 <Image 
                   src={service.image} 
                   alt={service.title} 
                   fill 
-                  className="object-cover group-hover:scale-105 transition-transform duration-700" // changed hover: to group-hover:
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-
-                {/* 2. The Brand Navy Overlay (Fades out on hover) */}
                 <div className="absolute inset-0 bg-brand-navy opacity-40 group-hover:opacity-10 transition-opacity duration-500 z-10" />
               </motion.div>
 
@@ -310,15 +307,14 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Decorative image/graphic placeholder for Coffee section */}
           <motion.div variants={fadeInUp} className="relative aspect-square md:aspect-4/5 rounded-2xl overflow-hidden shadow-2xl">
             <Image 
               src="/coffee.jpg" 
               alt="Premium Coffee Beans"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
-            {/* Fallback overlay in case image is missing */}
             <div className="absolute inset-0 bg-brand-navy/30 border border-brand-gold/30 rounded-2xl"></div>
           </motion.div>
         </motion.div>
@@ -370,9 +366,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </section>
-
-      
-       {/* 7. PORTFOLIO SHOWCASE */}
+           {/* 7. PORTFOLIO SHOWCASE */}
       {/* <section className="w-full py-28 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20">
