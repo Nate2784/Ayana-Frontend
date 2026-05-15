@@ -138,7 +138,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     key={item.name} 
                     href={item.href} 
                     onClick={() => setIsOpen(false)}
-                    className="text-sm font-bold uppercase tracking-widest text-center py-2 border-b border-gray-50 last:border-0"
+                    className="text-sm font-bold uppercase tracking-widest notranslate text-center py-2 border-b border-gray-50 last:border-0"
                   >
                     {item.name}
                   </Link>

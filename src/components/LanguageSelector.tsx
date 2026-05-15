@@ -44,7 +44,6 @@ export default function LanguageSelector() {
     }
 
     const addGoogleTranslateScript = () => {
-      // Fix: Check if the actual google translate object is loaded to avoid false positives
       if (window.google?.translate) return;
 
       window.googleTranslateElementInit = () => {
@@ -71,17 +70,34 @@ export default function LanguageSelector() {
     addGoogleTranslateScript();
   }, []);
 
-  // Memoize the handler to prevent unnecessary re-renders
+  // Bulletproof Handle Language Change
   const handleLanguageChange = useCallback((langCode: string) => {
     setCurrentLang(langCode);
     setIsOpen(false);
 
-    // Find the hidden native Google Translate dropdown and trigger it
-    const googleSelect = document.querySelector(".goog-te-combo") as HTMLSelectElement;
-    if (googleSelect) {
-      googleSelect.value = langCode;
-      googleSelect.dispatchEvent(new Event("change"));
-    }
+    // 1. Manually force update the Google Translate Cookies to clear dynamic rate limits
+    document.cookie = `googtrans=/en/${langCode}; path=/;`;
+    document.cookie = `googtrans=/en/${langCode}; path=/; domain=.${window.location.hostname};`;
+
+    let attempts = 0;
+    const triggerTranslation = () => {
+      const googleSelect = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+      
+      if (googleSelect) {
+        // 2. Hard override values
+        googleSelect.value = langCode;
+        
+        // 3. Dispatch full browser sequence to bypass asynchronous blockages from Google's observer
+        googleSelect.dispatchEvent(new Event("focus", { bubbles: true }));
+        googleSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        googleSelect.dispatchEvent(new Event("blur", { bubbles: true }));
+      } else if (attempts < 15) {
+        attempts++;
+        setTimeout(triggerTranslation, 80);
+      }
+    };
+
+    triggerTranslation();
   }, []);
 
   const activeLangLabel = languages.find((l) => l.code === currentLang)?.label || "EN";
@@ -105,23 +121,25 @@ export default function LanguageSelector() {
         }
       `}</style>
 
-      {/* Elegant Trigger Button */}
+      {/* Responsive Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-brand-gold/20 bg-white/50 text-brand-navy hover:border-brand-gold hover:text-brand-gold transition-all duration-300 group"
+        className="flex items-center gap-1 md:gap-1.5 px-2.5 py-1.5 md:px-3 rounded-full border border-brand-gold/20 bg-white/50 text-brand-navy hover:border-brand-gold hover:text-brand-gold transition-all duration-300 group"
       >
-        <Globe size={13} className="text-brand-gold group-hover:rotate-12 transition-transform duration-500" />
-        <span className="text-[10px] font-bold tracking-widest uppercase notranslate">{activeLangLabel}</span>
+        <Globe size={14} className="text-brand-gold group-hover:rotate-12 transition-transform duration-500 flex-shrink-0" />
+        <span className="text-[11px] md:text-[10px] font-bold tracking-widest uppercase notranslate min-w-[22px] text-center">
+          {activeLangLabel}
+        </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="text-brand-navy/60 group-hover:text-brand-gold"
+          className="text-brand-navy/60 group-hover:text-brand-gold flex-shrink-0"
         >
-          <ChevronDown size={12} />
+          <ChevronDown size={13} />
         </motion.div>
       </button>
 
-      {/* Premium Luxury Dropdown Panel */}
+      {/* Mobile-Responsive Premium Luxury Dropdown Panel */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -129,22 +147,22 @@ export default function LanguageSelector() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute notranslateright-0 mt-2 w-40 origin-top-right rounded-xl bg-white border border-brand-gold/20 shadow-xl overflow-hidden backdrop-blur-md"
+            className="absolute right-0 notranslate mt-2 w-44 md:w-40 origin-top-right rounded-xl bg-white border border-brand-gold/20 shadow-xl overflow-hidden backdrop-blur-md"
           >
             <div className="py-1 bg-linear-to-b from-white to-brand-light/20">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => handleLanguageChange(lang.code)}
-                  className={`w-full notranslate text-left px-4 py-2.5 text-xs font-medium tracking-wide transition-colors flex justify-between items-center
+                  className={`w-full notranslate text-left px-4 py-3 md:py-2.5 text-xs font-medium tracking-wide transition-colors flex justify-between items-center touch-manipulation
                     ${currentLang === lang.code 
                       ? "text-brand-gold bg-brand-navy/5 font-bold" 
                       : "text-brand-navy hover:bg-brand-gold/10 hover:text-brand-gold"
                     }`}
                 >
-                  <span>{lang.name}</span>
+                  <span className="text-[13px] md:text-xs">{lang.name}</span>
                   {currentLang === lang.code && (
-                    <span className="text-[9px] text-brand-gold bg-brand-gold/10 px-1.5 py-0.5 rounded-sm uppercase font-bold tracking-tighter">
+                    <span className="text-[8px] md:text-[9px] text-brand-gold bg-brand-gold/10 px-1.5 py-0.5 rounded-sm uppercase font-bold tracking-tighter flex-shrink-0">
                       Active
                     </span>
                   )}
