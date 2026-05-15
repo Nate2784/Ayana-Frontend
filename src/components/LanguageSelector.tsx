@@ -39,7 +39,7 @@ export default function LanguageSelector() {
     window.googleTranslateElementInit = () => {
       new window.google.translate.TranslateElement(
         {
-          pageLanguage: "en",
+          // FIX: Removing pageLanguage avoids Google breaking the DOM when switching back to English
           includedLanguages: "en,am,om",
           autoDisplay: false,
         },
@@ -50,7 +50,6 @@ export default function LanguageSelector() {
 
   // Core helper to inject or reinject the script tag when Google crashes the DOM
   const injectGoogleScript = useCallback(() => {
-    // Remove existing script if it got corrupted or stuck
     const oldScript = document.getElementById("google-translate-script");
     if (oldScript) oldScript.remove();
 
@@ -76,7 +75,20 @@ export default function LanguageSelector() {
     injectGoogleScript();
   }, [injectGoogleScript]);
 
-  // Handle Language Change with structural DOM Restoration
+  // Fallback engine: Forcefully clears out tracking states and restores English baseline
+  const resetToEnglishFallback = useCallback(() => {
+    setCurrentLang("en");
+    
+    // Clear cookies cleanly across current path and domains
+    const pastDate = "Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = `googtrans=; path=/; expires=${pastDate};`;
+    document.cookie = `googtrans=; path=/; domain=.${window.location.hostname}; expires=${pastDate};`;
+    
+    // Re-verify the DOM structure by completely pulling a fresh Google element instance
+    injectGoogleScript();
+  }, [injectGoogleScript]);
+
+  // Handle Language Change with structural Validation & Recovery Fallback
   const handleLanguageChange = useCallback((langCode: string) => {
     setCurrentLang(langCode);
     setIsOpen(false);
@@ -85,13 +97,10 @@ export default function LanguageSelector() {
     date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
     const expires = "; expires=" + date.toUTCString();
 
-    // Explicitly set cookie strings to prevent Google from clearing them completely on English transition
     const targetTransValue = `/en/${langCode}`;
     document.cookie = `googtrans=${targetTransValue}; path=/;${expires}`;
     document.cookie = `googtrans=${targetTransValue}; path=/; domain=.${window.location.hostname};${expires}`;
 
-    // Fix: If going from another language -> English -> another language, Google often deletes the target dropdown container.
-    // If it's missing, we force-rebuild Google's core context elements instantly.
     let googleSelect = document.querySelector(".goog-te-combo") as HTMLSelectElement;
     if (!googleSelect) {
       injectGoogleScript();
@@ -107,7 +116,6 @@ export default function LanguageSelector() {
         googleSelect.dispatchEvent(new Event("change", { bubbles: true }));
         googleSelect.dispatchEvent(new Event("blur", { bubbles: true }));
         
-        // Clean up visual artifact tracking left over from previous language changes
         if (langCode === "en") {
           document.querySelectorAll(".goog-te-font-inherit").forEach((el) => {
             el.classList.remove("goog-te-font-inherit");
@@ -116,6 +124,9 @@ export default function LanguageSelector() {
       } else if (attempts < 20) {
         attempts++;
         setTimeout(triggerTranslation, 50);
+      } else {
+        // SAFETY TRIGGER: If 20 loops go by and selection fails, default state back cleanly to English
+        resetToEnglishFallback();
       }
     };
 
@@ -124,7 +135,7 @@ export default function LanguageSelector() {
     if (typeof window !== "undefined" && window.google?.translate) {
       window.dispatchEvent(new Event("hashchange"));
     }
-  }, [injectGoogleScript]);
+  }, [injectGoogleScript, resetToEnglishFallback]);
 
   const activeLangLabel = languages.find((l) => l.code === currentLang)?.label || "EN";
 
