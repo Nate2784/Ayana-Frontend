@@ -160,14 +160,14 @@ export default function LanguageSelector() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1 md:gap-1.5 px-2.5 py-1.5 md:px-3 rounded-full border border-brand-gold/20 bg-white/50 text-brand-navy hover:border-brand-gold hover:text-brand-gold transition-all duration-300 group"
       >
-        <Globe size={14} className="text-brand-gold group-hover:rotate-12 transition-transform duration-500 flex-shrink-0" />
-        <span className="text-[11px] md:text-[10px] font-bold tracking-widest uppercase notranslate min-w-[22px] text-center">
+        <Globe size={14} className="text-brand-gold group-hover:rotate-12 transition-transform duration-500 shrink-0" />
+        <span className="text-[11px] md:text-[10px] font-bold tracking-widest uppercase notranslate min-w-5.5 text-center">
           {activeLangLabel}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="text-brand-navy/60 group-hover:text-brand-gold flex-shrink-0"
+          className="text-brand-navy/60 group-hover:text-brand-gold shrink-0"
         >
           <ChevronDown size={13} />
         </motion.div>
@@ -196,7 +196,7 @@ export default function LanguageSelector() {
                 >
                   <span className="text-[13px] md:text-xs">{lang.name}</span>
                   {currentLang === lang.code && (
-                    <span className="text-[8px] md:text-[9px] text-brand-gold bg-brand-gold/10 px-1.5 py-0.5 rounded-sm uppercase font-bold tracking-tighter flex-shrink-0">
+                    <span className="text-[8px] md:text-[9px] text-brand-gold bg-brand-gold/10 px-1.5 py-0.5 rounded-sm uppercase font-bold tracking-tighter shrink-0">
                       Active
                     </span>
                   )}
