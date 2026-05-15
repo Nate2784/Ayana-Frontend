@@ -204,7 +204,7 @@ export default function Contact() {
               </div>
             </div>
           </div>
-          <div className="mt-12 flex items-center gap-2 text-brand-gold font-medium"><Globe className="w-4 h-4" /><span className="text-[10px] uppercase tracking-[0.2em]">www.ayanageneraltrading.com.et/</span></div>
+          <div className="mt-12 flex items-center notranslate gap-2 text-brand-gold font-medium"><Globe className="w-4 h-4" /><span className="text-[10px] uppercase tracking-[0.2em]">www.ayanageneraltrading.com.et/</span></div>
         </motion.div>
 
         {/* Contact Form Section */}
