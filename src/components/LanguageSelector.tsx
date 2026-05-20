@@ -204,38 +204,44 @@ export default function LanguageSelector() {
 
       {/* Dropdown Navigation Menu */}
       <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute right-0 notranslate mt-2 w-44 md:w-40 origin-top-right rounded-xl bg-white border border-brand-gold/20 shadow-xl overflow-hidden backdrop-blur-md"
-          >
-            <div className="py-1 bg-gradient-to-b from-white to-brand-light/20">
-              {languages.map((lang) => (
-                <button
-                  key={lang.code}
-                  type="button"
-                  onClick={() => handleLanguageChange(lang.code)}
-                  className={`w-full notranslate text-left px-4 py-3 md:py-2.5 text-xs font-medium tracking-wide transition-colors flex justify-between items-center touch-manipulation
-                    ${currentLang === lang.code 
-                      ? "text-brand-gold bg-brand-navy/5 font-bold" 
-                      : "text-brand-navy hover:bg-brand-gold/10 hover:text-brand-gold"
-                    }`}
-                >
-                  <span className="text-[13px] md:text-xs">{lang.name}</span>
-                  {currentLang === lang.code && (
-                    <span className="text-[8px] md:text-[9px] text-brand-gold bg-brand-gold/10 px-1.5 py-0.5 rounded-sm uppercase font-bold tracking-tighter shrink-0">
-                      Active
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  {isOpen && (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      className="absolute right-0 notranslate mt-5 w-44 md:w-40 origin-top-right rounded-2xl bg-white/90 backdrop-blur-3xl border border-brand-gold/20 shadow-[0_20px_40px_rgba(0,0,0,0.1),0_1px_1px_rgba(255,255,255,0.8)_inset] overflow-hidden"
+    >
+      <div className="p-1.5 flex flex-col gap-0.5">
+        {languages.map((lang) => {
+          const isActive = currentLang === lang.code;
+          return (
+            <button
+              key={lang.code}
+              type="button"
+              onClick={() => handleLanguageChange(lang.code)}
+              className={`w-full notranslate text-left px-4 py-3 md:py-2.5 text-xs font-bold tracking-wider transition-all duration-300 flex justify-between items-center touch-manipulation rounded-xl group ${
+                isActive 
+                  ? "text-brand-gold bg-brand-navy/5" 
+                  : "text-brand-navy hover:bg-brand-gold/10 hover:text-brand-gold"
+              }`}
+            >
+              <span className="text-[13px] md:text-xs transition-transform duration-300 group-hover:translate-x-0.5">
+                {lang.name}
+              </span>
+              
+              {isActive && (
+                <span className="text-[9px] text-brand-gold bg-brand-gold/10 px-2 py-0.5 rounded-md uppercase tracking-tighter font-black border border-brand-gold/20 shrink-0">
+                  Active
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
       {/* PREMIUM CUSTOM POPUP TOAST NOTIFICATION */}
       <AnimatePresence onExitComplete={() => setShowToast(false)}>
@@ -251,7 +257,7 @@ export default function LanguageSelector() {
             }}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 notranslate pointer-events-none"
           >
-            <div className="bg-brand-navy/95 backdrop-blur-xl border border-brand-gold/40 shadow-[0_12px_40px_rgba(0,0,0,0.25)] text-white px-5 py-3 rounded-xl flex items-center gap-3 min-w-[260px] justify-center text-center">
+            <div className="bg-brand-navy/95 backdrop-blur-xl border border-brand-gold/40 shadow-[0_12px_40px_rgba(0,0,0,0.25)] text-white px-5 py-3 rounded-xl flex items-center gap-3 min-w-65 justify-center text-center">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse shadow-[0_0_8px_#c5a059]" />
               <p className="font-sans text-[11px] uppercase tracking-[0.2em] font-medium text-gray-200">
                 Translated to: <span className="text-brand-gold font-bold">{toastLanguageName}</span>

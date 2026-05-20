@@ -72,170 +72,176 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`${montserrat.variable} ${cormorant.variable} min-h-screen flex flex-col bg-brand-light font-sans antialiased text-brand-navy`}>
+      <body className={`${montserrat.variable} ${cormorant.variable} min-h-screen flex flex-col bg-brand-light font-sans antialiased overflow-x-hidden text-brand-navy`}>
         
         {/* HEADER */}
-<header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-gold/10">
-  {/* Lowered horizontal padding on mobile (px-3) to maximize breathing room */}
-  <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 flex justify-between items-center">
+<div className="sticky top-0 z-50 w-full px-4 sm:px-6 md:px-8 pt-4 pointer-events-none">
+  {/* Header: Elevated to a dense, milky "solid-glass" compound substrate */}
+  <header className="max-w-7xl mx-auto bg-white/75 backdrop-blur-3xl border border-brand-gold/20 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.06),0_1px_2px_rgba(255,255,255,0.9)_inset,0_0_0_1px_rgba(197,160,89,0.03)] hover:border-brand-gold/35 hover:shadow-[0_16px_45px_rgba(197,160,89,0.1)] transition-all duration-500 pointer-events-auto relative overflow-visible">
     
-    {/* BRAND LOGO AREA */}
-    {/* Reduced gap and tracking for ultra-small screens */}
-    <Link href="/" className="group flex items-center gap-1.5 md:gap-3 z-50 min-w-0">
-      <span className="font-serif notranslate text-xl sm:text-2xl md:text-3xl font-light tracking-widest sm:tracking-[0.2em] transition-colors group-hover:text-brand-gold truncate">
-        AYANA
-      </span>
-      {/* Kept your exact animation sequence intact, just made the wrapper flex-shrink-0 */}
-      <div className="flex gap-0.5 items-center mb-1 shrink-0">
-        {[0, 1, 2].map((i) => (
-          <motion.span
-            key={i}
-            className="text-brand-gold"
-            animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
-            transition={{ duration: 3, delay: i * 0.4, repeat: Infinity }}
-            style={{ fontSize: i === 1 ? '1rem' : '0.6rem' }}
-          >
-            ★
-          </motion.span>
-        ))}
-      </div>
-    </Link>
-
-    {/* DESKTOP NAVIGATION */}
-    <nav className="hidden notranslate md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.25em]">
-      {navItems.map((item) => (
-        <Link key={item.name} href={item.href} className="relative group py-1 overflow-hidden">
-          <span className="group-hover:text-brand-gold transition-colors duration-300">{item.name}</span>
-          <span className="absolute bottom-0 left-0 w-full h-px bg-brand-gold translate-x-[-105%] group-hover:translate-x-0 transition-transform duration-500"></span>
-        </Link>
-      ))}
-    </nav>
-
-    {/* ACTIONS CONTROLLER */}
-    {/* Reduced gap from 4 to 2 on mobile to guarantee everything stays on one line */}
-    <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-      <LanguageSelector />
-
-      {pathname !== "/contact" && (
-        <Link href="/contact" className="hidden sm:block btn-gold py-2 px-4 text-[9px] uppercase tracking-[0.2em] whitespace-nowrap">
-          Book Consult
-        </Link>
-      )}
+    {/* Lowered horizontal padding on mobile (px-4) to maximize breathing room inside rounded container */}
+    <div className="px-4 sm:px-6 md:px-8 py-3.5 flex justify-between items-center">
       
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden text-brand-navy p-1 z-50 flex items-center justify-center"
-        aria-label="Toggle Menu"
-      >
-        {isOpen ? <X size={22} /> : <Menu size={22} />}
-      </button>
-    </div>
-  </div>
+      {/* BRAND LOGO AREA */}
+      <Link href="/" className="group flex items-center gap-1.5 md:gap-3 z-50 min-w-0">
+        <span className="font-serif notranslate text-xl sm:text-2xl md:text-3xl font-light tracking-widest sm:tracking-[0.25em] text-brand-navy group-hover:text-brand-gold transition-colors duration-500 truncate">
+          AYANA
+        </span>
+        
+        {/* Futuristic Star Core Panel */}
+        <div className="flex gap-0.5 items-center mb-1 shrink-0  px-2 py-0.5 ">
+          {[0, 1, 2].map((i) => (
+            <motion.span
+              key={i}
+              className="text-brand-gold"
+              animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.15, 0.8] }}
+              transition={{ duration: 2.5, delay: i * 0.3, repeat: Infinity, ease: "easeInOut" }}
+              style={{ fontSize: i === 1 ? '0.9rem' : '0.65rem' }}
+            >
+              ★
+            </motion.span>
+          ))}
+        </div>
+      </Link>
 
-  {/* MOBILE DROPDOWN MENU */}
-  <AnimatePresence>
-    {isOpen && (
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        className="absolute top-full left-0 w-full bg-white border-b border-brand-gold/10 flex flex-col p-6 sm:p-8 gap-4 sm:gap-6 md:hidden shadow-xl max-h-[calc(100vh-70px)] overflow-y-auto"
-      >
+      {/* DESKTOP NAVIGATION */}
+      <nav className="hidden notranslate md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.3em] text-brand-navy">
         {navItems.map((item) => (
-          <Link 
-            key={item.name} 
-            href={item.href} 
-            onClick={() => setIsOpen(false)}
-            className="text-xs sm:text-sm font-bold uppercase tracking-widest notranslate text-center py-2.5 border-b border-gray-50 last:border-0"
-          >
-            {item.name}
+          <Link key={item.name} href={item.href} className="relative group py-1 overflow-hidden">
+            <span className="group-hover:text-brand-gold group-hover:tracking-[0.35em] transition-all duration-500 ease-out">{item.name}</span>
+            <span className="absolute bottom-0 left-1/2 w-1.5 h-1.5 rounded-full bg-brand-gold opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 -translate-x-1/2 transition-all duration-500 ease-out"></span>
           </Link>
         ))}
-        
-        {/* Fallback Book Consult button inside the mobile drawer for mobile viewports */}
+      </nav>
+
+      {/* ACTIONS CONTROLLER */}
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <LanguageSelector />
+
         {pathname !== "/contact" && (
-          <Link 
-            href="/contact" 
-            onClick={() => setIsOpen(false)}
-            className="sm:hidden btn-gold text-center py-3 text-[10px] uppercase tracking-[0.2em] mt-2"
-          >
+          <Link href="/contact" className="hidden sm:block btn-gold py-2 px-5 text-[9px] uppercase tracking-[0.25em] whitespace-nowrap rounded-full shadow-[0_4px_15px_rgba(197,160,89,0.15)] hover:shadow-[0_6px_25px_rgba(197,160,89,0.3)] hover:-translate-y-0.5 transition-all duration-300">
             Book Consult
           </Link>
         )}
-      </motion.div>
-    )}
-  </AnimatePresence>
-</header>
+        
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-brand-navy p-1.5 z-50 flex items-center justify-center rounded-full bg-brand-navy/5 hover:bg-brand-navy/10 transition-colors"
+          aria-label="Toggle Menu"
+        >
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+    </div>
+
+    {/* MOBILE DROPDOWN MENU - Strong Heavy Glass Capsule Sub-Panel */}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0, y: 15, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 15, scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 350, damping: 28 }}
+          className="absolute top-[calc(100%+0.75rem)] left-0 w-full bg-white/90 backdrop-blur-2xl border border-brand-gold/20 flex flex-col p-5 sm:p-6 gap-3 md:hidden shadow-[0_25px_60px_rgba(0,0,0,0.12),0_1px_2px_rgba(255,255,255,0.8)_inset] rounded-3xl max-h-[calc(100vh-100px)] overflow-y-auto"
+        >
+          {navItems.map((item) => (
+            <Link 
+              key={item.name} 
+              href={item.href} 
+              onClick={() => setIsOpen(false)}
+              className="text-xs sm:text-sm font-bold uppercase tracking-widest notranslate text-center py-3 rounded-xl hover:bg-brand-gold/10 hover:text-brand-gold text-brand-navy transition-all duration-300 border border-transparent hover:border-brand-gold/10"
+            >
+              {item.name}
+            </Link>
+          ))}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </header>
+</div>
 
         <main className="grow">
           {children}
         </main>
 
-       {/* FOOTER */}
-        <footer className="bg-brand-navy text-brand-light pt-16 md:pt-24 pb-12 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-brand-gold to-transparent opacity-40"></div>
-          
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
-              <div className="sm:col-span-2">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="font-serif text-3xl md:text-4xl font-light tracking-widest text-brand-gold notranslate">AYANA</span>
-                  <StarIcon />
-                </div>
-                <p className="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-sm">
-                  Curation of bespoke events and premium global trading, blending artistic vision with logistical perfection.
-                </p>
-              </div>
+<footer className="relative bg-brand-navy text-gray-300 pt-24 pb-12 overflow-hidden border-t border-white/5">
+  {/* Atmospheric Radial Glow - Futuristic depth */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(197,160,89,0.08),transparent_70%)] pointer-events-none"></div>
 
-              <div>
-                <h4 className="font-sans font-bold text-white text-[10px] uppercase tracking-[0.3em] mb-6">Explore</h4>
-                <ul className="space-y-3 text-sm text-gray-400">
-                  <li><Link href="/" className="hover:text-brand-gold transition-colors notranslate">Home</Link></li>
-                  <li><Link href="/about" className="hover:text-brand-gold transition-colors notranslate">Our Legacy</Link></li>
-                  <li><Link href="/contact" className="hover:text-brand-gold transition-colors notranslate">Contact Us</Link></li>
-                </ul>
-              </div>
+  <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-20">
+      
+      {/* Brand Column */}
+      <div className="md:col-span-5 space-y-8">
+        <div className="flex items-center gap-4">
+          <span className="font-serif text-4xl md:text-5xl font-light tracking-[0.2em] text-white notranslate">AYANA</span>
+          <div className="h-px w-12 bg-brand-gold/50"></div>
+        </div>
+        <p className="text-gray-400 font-light leading-relaxed max-w-sm tracking-wide">
+          Curation of bespoke events and premium global trading. Where artistic vision meets the precision of logistical excellence.
+        </p>
+      </div>
 
-              <div>
-                <h4 className="font-sans font-bold text-white text-[10px] uppercase tracking-[0.3em] mb-6">Inquiries</h4>
-                <div className="space-y-5 text-sm text-gray-400">
-                  <div className="flex flex-col">
-                    <span className="text-[9px] text-brand-gold mb-1 uppercase">Email</span>
-                    <a href="mailto:Ayanaevents16@gmail.com" className="hover:text-brand-gold transition-colors truncate notranslate">Ayanaevents16@gmail.com</a>
-                    <a href="mailto:Ayanageneraltrading@gmail.com" className="hover:text-brand-gold transition-colors truncate notranslate">Ayanageneraltrading@gmail.com</a>
-                  </div>
-                  
-                  <div className="flex flex-col">
-                    <span className="text-[9px] text-brand-gold mb-1 uppercase">Phone</span>
-                    <a href="tel:+251911108922" className="hover:text-brand-gold transition-colors notranslate">+251 911 108 922</a>
-                    <a href="tel:+251955388008" className="hover:text-brand-gold transition-colors notranslate">+251 955 388 008</a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[9px] text-brand-gold mb-1 uppercase">Headquarters</span>
-                    <p>Addis Ababa, Ethiopia</p>
-                  </div>
-                </div>
-              </div>
+      {/* Links & Inquiries - Modernized Layout */}
+      <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-12">
+        
+        {/* Navigation */}
+        <div className="space-y-6">
+          <h4 className="font-sans font-bold text-white text-[9px] uppercase tracking-[0.3em]">Navigation</h4>
+          <ul className="space-y-4">
+            {['Home', 'Our Legacy', 'Contact Us'].map((link) => (
+              <li key={link}>
+                <Link href={link === 'Home' ? '/' : `/${link.toLowerCase().replace(' ', '-')}`} 
+                      className="group flex items-center gap-3 text-sm hover:text-brand-gold transition-all duration-300 notranslate">
+                  <span className="w-1 h-1 rounded-full bg-brand-gold opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  {link}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contact Data - Capsule Style */}
+        <div className="space-y-6">
+          <h4 className="font-sans font-bold text-white text-[9px] uppercase tracking-[0.3em]">Global Contact</h4>
+          <div className="space-y-5">
+            <div className="p-4 rounded-2xl bg-white/2 border border-white/5 hover:border-brand-gold/30 transition-all duration-500">
+              <span className="text-[8px] text-brand-gold block mb-1 uppercase tracking-widest">Email Channels</span>
+              <a href="mailto:Ayanaevents16@gmail.com" className="block hover:text-white transition-colors text-sm notranslate">Ayanaevents16@gmail.com</a>
+              <a href="mailto:Ayanageneraltrading@gmail.com" className="block hover:text-white transition-colors text-sm notranslate">Ayanageneraltrading@gmail.com</a>
             </div>
-
-            <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-              <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">
-                © {new Date().getFullYear()} Ayana General Trading.
-              </div>
-              
-              <div className="flex gap-6 md:gap-8">
-                <a 
-                  href="https://www.facebook.com/share/1AHbgG7DvU/?mibextid=wwXIfr" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-brand-gold transition-colors"
-                >
-                  Facebook
-                </a>
-              </div>
+            <div className="p-4 rounded-2xl bg-white/2 border border-white/5 hover:border-brand-gold/30 transition-all duration-500">
+              <span className="text-[8px] text-brand-gold block mb-1 uppercase tracking-widest">Telecommunications</span>
+              <a href="tel:+251911108922" className="block hover:text-white transition-colors text-sm notranslate">+251 911 108 922</a>
+              <a href="tel:+251955388008" className="block hover:text-white transition-colors text-sm notranslate">+251 955 388 008</a>
+            </div>
+            
+            <div className="p-4 rounded-2xl bg-white/2 border border-white/5 hover:border-brand-gold/30 transition-all duration-500">
+              <span className="text-[8px] text-brand-gold block mb-1 uppercase tracking-widest">Headquarters</span>
+              <p>Addis Ababa, Ethiopia</p>
             </div>
           </div>
-        </footer>
+        </div>
+      </div>
+    </div>
+
+    {/* Footer Bottom Bar */}
+    <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6">
+      <div className="text-[9px] uppercase tracking-[0.25em] text-gray-600">
+        © {new Date().getFullYear()} Ayana General Trading. All Rights Reserved.
+      </div>
+      
+      <a 
+        href="https://www.facebook.com/share/1AHbgG7DvU/?mibextid=wwXIfr" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="text-[9px] uppercase tracking-[0.25em] text-white hover:text-brand-gold transition-colors px-6 py-2 rounded-full border border-white/10 hover:border-brand-gold/30"
+      >
+        Connect via Facebook
+      </a>
+    </div>
+  </div>
+</footer>
 
         {/* GO TO TOP BUTTON */}
         <AnimatePresence>

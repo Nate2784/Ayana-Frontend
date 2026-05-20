@@ -280,7 +280,7 @@ export default function Contact() {
                 <div className="space-y-2">
                   <label className="text-[9px] font-mono uppercase tracking-[0.2em] text-brand-navy/60 ml-1">Identity: Full Name *</label>
                   <input 
-                    name="name" required type="text" placeholder="Natnael Tesfaye"
+                    name="name" required type="text" placeholder="Natnael Dagnachew"
                     value={name} onChange={(e) => setName(e.target.value)} onKeyDown={handleNameKeyDown}
                     className={`w-full p-4 border font-sans text-sm rounded-xl bg-brand-light focus:outline-none transition-all ${errors.name ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-100 focus:ring-2 focus:ring-brand-gold/40 focus:bg-white'}`} 
                   />

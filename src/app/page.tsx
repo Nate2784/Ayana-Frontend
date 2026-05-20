@@ -64,7 +64,7 @@ export default function Home() {
       <section className="relative w-full h-screen flex items-center justify-center bg-brand-navy overflow-hidden">
         {/* Modern Depth Enhancements: Ambient Subtle Glow & Tech Grid Mesh */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.07)_0%,transparent_70%)] z-1 pointer-events-none" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1 pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-size-[4rem_4rem] z-1 pointer-events-none" />
         
         <motion.div 
           className="absolute inset-0 z-0"
@@ -101,7 +101,7 @@ export default function Home() {
             className="font-serif text-5xl md:text-9xl text-white mb-8 leading-[1.1] tracking-tight"
             variants={fadeInUp}
           >
-            Crafting <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-white">Atmospheres</span> <br /> 
+            Crafting <span className="italic font-light text-transparent bg-clip-text bg-linear-to-r from-white via-gray-200 to-white">Atmospheres</span> <br /> 
             <span className="text-transparent bg-clip-text bg-shiny-gold drop-shadow-[0_4px_20px_rgba(212,175,55,0.25)]">Beyond Imagination</span>
           </motion.h1>
           
@@ -127,7 +127,7 @@ export default function Home() {
               className="text-white/80 hover:text-white transition-all text-sm uppercase tracking-widest font-medium relative py-2 group"
             >
               Learn About Us
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-gold transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full" />
             </Link>
           </motion.div>
         </motion.div>
@@ -172,7 +172,7 @@ export default function Home() {
       {/* 2. COMPANY OVERVIEW: AYANA GENERAL TRADING */}
       <section className="w-full py-32 px-6 bg-white relative overflow-hidden">
         {/* Tech Vibe Subtle Structural Enhancements */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.01)_1px,transparent_1px)] bg-[size:6rem_6rem] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.01)_1px,transparent_1px)] bg-size-[6rem_6rem] pointer-events-none" />
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-gold/5 rounded-full filter blur-3xl pointer-events-none" />
         
         <motion.div 
@@ -186,8 +186,8 @@ export default function Home() {
           <motion.div variants={fadeInUp}>
             <h2 className="text-4xl md:text-6xl mb-6 font-serif text-brand-navy tracking-tight">Ayana General Trading</h2>
             {/* Sleek, ultra-thin high-end luxury divider */}
-            <div className="h-[2px] w-20 bg-brand-gold mx-auto mb-12 relative">
-              <span className="absolute inset-0 w-2 h-2 bg-brand-gold rounded-full -top-[3px] left-1/2 -translate-x-1/2 animate-pulse" />
+            <div className="h-0.5 w-20 bg-brand-gold mx-auto mb-12 relative">
+              <span className="absolute inset-0 w-2 h-2 bg-brand-gold rounded-full -top-0.75 left-1/2 -translate-x-1/2 animate-pulse" />
             </div>
             <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto font-light leading-relaxed mb-24 tracking-wide">
               At Ayana General Trading, we operate on two distinct pillars of excellence. We are renowned masters in <strong>Premium Event Organization</strong>, creating unforgettable experiences. Looking to the future, we are rapidly expanding into the global market with our upcoming <strong>Coffee Export & Import</strong> division.
@@ -204,12 +204,12 @@ export default function Home() {
             >
               {/* FIXED: Isolated clipping container for the laser line, preventing spillover */}
               <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-brand-gold/40 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               </div>
 
               {/* Integrated Border Icon Node (Sits comfortably outside the clip container) */}
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white rounded-xl border border-gray-100 shadow-xs flex items-center justify-center transition-all duration-500 group-hover:border-brand-gold/40 group-hover:shadow-md group-hover:scale-110 z-10">
-                <div className="absolute inset-[3px] rounded-lg bg-brand-light flex items-center justify-center">
+                <div className="absolute inset-0.75 rounded-lg bg-brand-light flex items-center justify-center">
                   <Star className="w-5 h-5 text-brand-gold fill-brand-gold/10 transition-transform duration-500 group-hover:rotate-12" />
                 </div>
               </div>
@@ -227,13 +227,13 @@ export default function Home() {
             >
               {/* FIXED: Isolated clipping container for the laser line, preventing spillover */}
               <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-brand-gold/40 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               </div>
 
               {/* Integrated Border Icon Node (Sits comfortably outside the clip container) */}
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white rounded-xl border border-gray-100 shadow-xs flex items-center justify-center transition-all duration-500 group-hover:border-brand-gold/40 group-hover:shadow-md group-hover:scale-110 z-10">
-                <div className="absolute inset-[3px] rounded-lg bg-brand-light flex items-center justify-center">
-                  <Coffee className="w-5 h-5 text-brand-gold transition-transform duration-500 group-hover:-translate-y-[1px]" />
+                <div className="absolute inset-0.75 rounded-lg bg-brand-light flex items-center justify-center">
+                  <Coffee className="w-5 h-5 text-brand-gold transition-transform duration-500 group-hover:-translate-y-px" />
                 </div>
               </div>
               
@@ -250,8 +250,8 @@ export default function Home() {
       {/* 3. OUR SERVICES (Futuristic Luxury Grid) */}
       <section className="w-full py-36 px-6 bg-brand-light relative overflow-hidden">
         {/* Futuristic Spatial Depth Layering */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(212,175,55,0.03)_0%,transparent_70%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.015)_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-[radial-gradient(circle,rgba(212,175,55,0.03)_0%,transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.015)_1px,transparent_1px)] bg-size-[24px_24px] opacity-70 pointer-events-none" />
 
         <motion.div 
           className="max-w-7xl mx-auto relative z-10"
@@ -270,7 +270,7 @@ export default function Home() {
             </h2>
             
             {/* Minimalist Neo-Luxury Structural Line */}
-            <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent mx-auto relative">
+            <div className="h-px w-32 bg-linear-to-r from-transparent via-brand-gold/50 to-transparent mx-auto relative">
               <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand-navy border border-brand-gold" />
             </div>
 
@@ -291,18 +291,18 @@ export default function Home() {
                 <span className="absolute top-6 right-8 w-2 h-2 rounded-full bg-gray-200 transition-all duration-500 group-hover:bg-brand-gold group-hover:animate-pulse" />
 
                 {/* Cyber-Luxury Geometric Background Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-light/10 to-brand-gold/[0.015] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+                <div className="absolute inset-0 bg-linear-to-b from-transparent via-brand-light/10 to-brand-gold/1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
                 <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-[radial-gradient(circle,rgba(212,175,55,0.06)_0%,transparent_70%)] rounded-full transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-125 pointer-events-none" />
 
                 {/* Structural Border Laser Trace Container */}
                 <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden pointer-events-none z-0">
-                  <div className="absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent transform translate-x-full group-hover:translate-x-[-100%] transition-transform duration-1000 ease-in-out" />
+                  <div className="absolute bottom-0 left-0 h-0.5 w-full bg-linear-to-r from-transparent via-brand-gold/30 to-transparent transform translate-x-full group-hover:-translate-x-full transition-transform duration-1000 ease-in-out" />
                 </div>
 
                 {/* FIXED: Absolute Spatial Centering Hub */}
                 <div className="w-16 h-16 rounded-2xl bg-brand-navy mb-10 relative overflow-hidden shadow-lg border border-brand-navy transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-[0_10px_25px_rgba(10,25,47,0.3)] z-10">
                   {/* Internal ambient sweep inside the icon box */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
+                  <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                   
                   {/* Bulletproof Absolute Positioning Core for SVGs */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block transition-transform duration-500 group-hover:scale-110">
@@ -345,7 +345,7 @@ export default function Home() {
             {/* Elegant Floating Background Light */}
             <div className={`absolute top-1/2 ${
               i % 2 === 0 ? 'right-10 translate-x-1/4' : 'left-10 -translate-x-1/4'
-            } -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(212,175,55,0.015)_0%,transparent_75%)] pointer-events-none`} />
+            } -translate-y-1/2 w-150 h-150 bg-[radial-gradient(circle,rgba(212,175,55,0.015)_0%,transparent_75%)] pointer-events-none`} />
 
             <div className={`max-w-7xl mx-auto flex flex-col ${
               i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
@@ -357,14 +357,13 @@ export default function Home() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                
                 transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
               >
                 {/* Prestige Soft-Focus Aura */}
                 <div className="absolute -inset-4 rounded-[2.5rem] bg-brand-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-2xl pointer-events-none" />
                 
                 {/* Main Image Frame with Luxury Matte Shadow */}
-                <div className="relative aspect-[4/3] w-full rounded-[2rem] overflow-hidden border border-gray-100 bg-brand-light shadow-[0_30px_70px_rgba(163,141,94,0.05)] transition-all duration-700 group-hover:shadow-[0_40px_90px_rgba(10,25,47,0.08)]">
+                <div className="relative aspect-4/3 w-full rounded-4xl overflow-hidden border border-gray-100 bg-brand-light shadow-[0_30px_70px_rgba(163,141,94,0.05)] transition-all duration-700 group-hover:shadow-[0_40px_90px_rgba(10,25,47,0.08)]">
                   <Image 
                     src={service.image} 
                     alt={service.title} 
@@ -380,7 +379,7 @@ export default function Home() {
                 {/* Decorative Asymmetric Fine-Art Corner Label */}
                 <div className={`absolute -bottom-4 ${
                   i % 2 === 0 ? 'right-6' : 'left-6'
-                } hidden sm:block font-serif italic text-xs tracking-widest text-brand-gold/60 bg-white px-4 py-2 border border-gray-100 rounded-md shadow-xs transition-transform duration-700 group-hover:translate-y-[-2px]`}>
+                } hidden sm:block font-serif italic text-xs tracking-widest text-brand-gold/60 bg-white px-4 py-2 border border-gray-100 rounded-md shadow-xs transition-transform duration-700 group-hover:-translate-y-0.5`}>
                   Ayana Collection
                 </div>
               </motion.div>
