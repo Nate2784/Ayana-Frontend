@@ -189,7 +189,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="space-y-6">
           <h4 className="font-sans font-bold text-white text-[9px] uppercase tracking-[0.3em]">Navigation</h4>
           <ul className="space-y-4">
-            {['Home', 'Our Legacy', 'Contact Us'].map((link) => (
+            {['Home', 'About US', 'Contact'].map((link) => (
               <li key={link}>
                 <Link href={link === 'Home' ? '/' : `/${link.toLowerCase().replace(' ', '-')}`} 
                       className="group flex items-center gap-3 text-sm hover:text-brand-gold transition-all duration-300 notranslate">
