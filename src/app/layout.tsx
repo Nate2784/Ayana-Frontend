@@ -75,78 +75,97 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${montserrat.variable} ${cormorant.variable} min-h-screen flex flex-col bg-brand-light font-sans antialiased text-brand-navy`}>
         
         {/* HEADER */}
-        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-gold/10">
-          <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
-            
-            <Link href="/" className="group flex items-center gap-2 md:gap-3 z-50">
-              <span className="font-serif  notranslate text-2xl md:text-3xl font-light tracking-[0.2em] transition-colors group-hover:text-brand-gold">
-                AYANA
-              </span>
-              <div className="flex gap-0.5 items-center mb-1">
-                {[0, 1, 2].map((i) => (
-                  <motion.span
-                    key={i}
-                    className="text-brand-gold"
-                    animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
-                    transition={{ duration: 3, delay: i * 0.4, repeat: Infinity }}
-                    style={{ fontSize: i === 1 ? '1rem' : '0.6rem' }}
-                  >
-                    ★
-                  </motion.span>
-                ))}
-              </div>
-            </Link>
+<header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-gold/10">
+  {/* Lowered horizontal padding on mobile (px-3) to maximize breathing room */}
+  <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 flex justify-between items-center">
+    
+    {/* BRAND LOGO AREA */}
+    {/* Reduced gap and tracking for ultra-small screens */}
+    <Link href="/" className="group flex items-center gap-1.5 md:gap-3 z-50 min-w-0">
+      <span className="font-serif notranslate text-xl sm:text-2xl md:text-3xl font-light tracking-widest sm:tracking-[0.2em] transition-colors group-hover:text-brand-gold truncate">
+        AYANA
+      </span>
+      {/* Kept your exact animation sequence intact, just made the wrapper flex-shrink-0 */}
+      <div className="flex gap-0.5 items-center mb-1 shrink-0">
+        {[0, 1, 2].map((i) => (
+          <motion.span
+            key={i}
+            className="text-brand-gold"
+            animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+            transition={{ duration: 3, delay: i * 0.4, repeat: Infinity }}
+            style={{ fontSize: i === 1 ? '1rem' : '0.6rem' }}
+          >
+            ★
+          </motion.span>
+        ))}
+      </div>
+    </Link>
 
-            <nav className="hidden notranslate md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.25em]">
-              {navItems.map((item) => (
-                <Link key={item.name} href={item.href} className="relative group py-1 overflow-hidden">
-                  <span className="group-hover:text-brand-gold transition-colors duration-300">{item.name}</span>
-                  <span className="absolute bottom-0 left-0 w-full h-px bg-brand-gold translate-x-[-105%] group-hover:translate-x-0 transition-transform duration-500"></span>
-                </Link>
-              ))}
-            </nav>
+    {/* DESKTOP NAVIGATION */}
+    <nav className="hidden notranslate md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.25em]">
+      {navItems.map((item) => (
+        <Link key={item.name} href={item.href} className="relative group py-1 overflow-hidden">
+          <span className="group-hover:text-brand-gold transition-colors duration-300">{item.name}</span>
+          <span className="absolute bottom-0 left-0 w-full h-px bg-brand-gold translate-x-[-105%] group-hover:translate-x-0 transition-transform duration-500"></span>
+        </Link>
+      ))}
+    </nav>
 
-            <div className="flex items-center gap-4">
-              <LanguageSelector/>
-  
-              {pathname !== "/contact" && (
-                <Link href="/contact" className="hidden sm:block btn-gold py-2! px-5! text-[9px] uppercase tracking-[0.2em]">
-                  Book Consult
-                </Link>
-              )}
-              
-              <button 
-                onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden text-brand-navy p-1 z-50"
-                aria-label="Toggle Menu"
-              >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
+    {/* ACTIONS CONTROLLER */}
+    {/* Reduced gap from 4 to 2 on mobile to guarantee everything stays on one line */}
+    <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+      <LanguageSelector />
 
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="absolute top-full left-0 w-full bg-white border-b border-brand-gold/10 flex flex-col p-8 gap-6 md:hidden shadow-xl"
-              >
-                {navItems.map((item) => (
-                  <Link 
-                    key={item.name} 
-                    href={item.href} 
-                    onClick={() => setIsOpen(false)}
-                    className="text-sm font-bold uppercase tracking-widest notranslate text-center py-2 border-b border-gray-50 last:border-0"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </header>
+      {pathname !== "/contact" && (
+        <Link href="/contact" className="hidden sm:block btn-gold py-2 px-4 text-[9px] uppercase tracking-[0.2em] whitespace-nowrap">
+          Book Consult
+        </Link>
+      )}
+      
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden text-brand-navy p-1 z-50 flex items-center justify-center"
+        aria-label="Toggle Menu"
+      >
+        {isOpen ? <X size={22} /> : <Menu size={22} />}
+      </button>
+    </div>
+  </div>
+
+  {/* MOBILE DROPDOWN MENU */}
+  <AnimatePresence>
+    {isOpen && (
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        className="absolute top-full left-0 w-full bg-white border-b border-brand-gold/10 flex flex-col p-6 sm:p-8 gap-4 sm:gap-6 md:hidden shadow-xl max-h-[calc(100vh-70px)] overflow-y-auto"
+      >
+        {navItems.map((item) => (
+          <Link 
+            key={item.name} 
+            href={item.href} 
+            onClick={() => setIsOpen(false)}
+            className="text-xs sm:text-sm font-bold uppercase tracking-widest notranslate text-center py-2.5 border-b border-gray-50 last:border-0"
+          >
+            {item.name}
+          </Link>
+        ))}
+        
+        {/* Fallback Book Consult button inside the mobile drawer for mobile viewports */}
+        {pathname !== "/contact" && (
+          <Link 
+            href="/contact" 
+            onClick={() => setIsOpen(false)}
+            className="sm:hidden btn-gold text-center py-3 text-[10px] uppercase tracking-[0.2em] mt-2"
+          >
+            Book Consult
+          </Link>
+        )}
+      </motion.div>
+    )}
+  </AnimatePresence>
+</header>
 
         <main className="grow">
           {children}
@@ -225,7 +244,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               initial={{ opacity: 0, scale: 0.5, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.5, y: 20 }}
-              className="fixed bottom-8 right-8 z-50 flex flex-col items-center gap-1 group"
+              // Adjusted positioning: closer to edges on mobile (bottom-4 right-4), wider on desktop (md:bottom-8 md:right-8)
+              className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 flex flex-col items-center gap-1 group"
             >
               <motion.span
                 animate={{ 
@@ -244,7 +264,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     opacity: { duration: 0.5, repeat: Infinity }
                   }
                 }}
-                className="text-brand-gold text-base group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.8)]"
+                // Adjusted star size: smaller on mobile
+                className="text-brand-gold text-sm md:text-base group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.8)]"
               >
                 ★
               </motion.span>
@@ -253,10 +274,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={scrollToTop}
-                className="bg-brand-gold text-brand-navy p-3 rounded-full shadow-2xl border border-brand-gold hover:bg-transparent hover:text-brand-gold transition-colors duration-300 relative"
+                // Adjusted padding: p-2 on mobile, p-3 on desktop
+                className="bg-brand-gold text-brand-navy p-2 md:p-3 rounded-full shadow-2xl border border-brand-gold hover:bg-transparent hover:text-brand-gold transition-colors duration-300 relative"
                 aria-label="Scroll to top"
               >
-                <ChevronUp size={24} className="group-hover:-translate-y-1 transition-transform duration-300" />
+                {/* Removed size={24} to allow responsive Tailwind sizing via w-* and h-* */}
+                <ChevronUp className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-y-1 transition-transform duration-300" />
               </motion.button>
             </motion.div>
           )}

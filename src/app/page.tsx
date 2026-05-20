@@ -57,7 +57,8 @@ const services = [
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col items-center">
+    // ADDED: overflow-x-hidden to prevent the horizontal white space during x-axis animations
+    <div className="w-full flex flex-col items-center overflow-x-hidden">
       
       {/* 1. THE HERO EXPERIENCE */}
       <section className="relative w-full h-screen flex items-center justify-center bg-brand-navy overflow-hidden">
