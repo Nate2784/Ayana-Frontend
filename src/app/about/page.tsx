@@ -111,9 +111,9 @@ export default function About() {
             <div className="absolute inset-0 border-12 border-transparent group-hover:border-brand-gold/5 transition-all duration-700 z-20 pointer-events-none" />
 
             {/* Neon Data Stream Mask inside the graphic */}
-            <div className="absolute inset-x-6 bottom-6 md:inset-x-10 md:bottom-10 z-20 bg-brand-navy/2 border border-brand-gold/20 p-6 rounded-2xl backdrop-blur-lg transform group-hover:-translate-y-1.25 transition-transform duration-500">
-              <div className="w-8 h-0.5 bg-brand-gold/3 mb-3" />
-              <p className="text-brand-gold font-serif text-2xl md:text-3xl tracking-wide">Est. 2026</p> 
+            <div className="absolute inset-x-6 bottom-6 md:inset-x-10 md:bottom-10 z-20 border border-brand-gold/20 p-6 rounded-2xl transform group-hover:-translate-y-1.25 transition-transform duration-500">
+              <div className="w-8 h-0.5 mb-3" />
+              <p className="text-brand-gold font-serif text-1xl md:text-2xl tracking-wide">Est. 2026</p> 
               <p className="text-white/70 font-mono text-[9px] uppercase tracking-[0.3em] mt-1">
                  // EXCELLENCE GUARANTEED
               </p>
