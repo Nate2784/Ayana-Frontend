@@ -264,7 +264,7 @@ export default function About() {
             
             <h3 className="text-2xl font-bold text-brand-navy tracking-wide">Biruktawit Abebe</h3>
             <p className="text-xs font-mono text-brand-gold uppercase tracking-[0.4em] mt-1">
-              [ FOUNDER ]
+              [ FOUNDER / CEO]
             </p>
           </motion.div>
         </motion.div>
