@@ -147,7 +147,7 @@ export default function Contact() {
                 onClick={() => setModal({ ...modal, isOpen: false })}
                 className="w-full py-4 bg-linear-to-r from-brand-gold to-brand-gold/80 hover:from-brand-gold/90 hover:to-brand-gold text-brand-navy font-bold font-mono text-xs uppercase tracking-widest rounded-xl transition-all active:scale-98 shadow-xl"
               >
-                [ TERMINATE_WINDOW ]
+                [ CLOSE_WINDOW ]
               </button>
             </motion.div>
           </div>
