@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { MoveRight, Star, Cake, Briefcase, Music, Coffee, Ribbon } from "lucide-react"; 
+import ServicesTree from "@/components/ServicesTree";
 
 // Animation presets
 const fadeInUp: Variants = {
@@ -29,30 +30,34 @@ const staggerContainer: Variants = {
 };
       
 const services = [
-  {
-    title: "Exquisite Weddings",
-    icon: Ribbon,
-    image: "/wedding-service.jpg",
-    description: "From intimate garden ceremonies to grand ballroom galas, we curate weddings that are as unique as your love story. Our meticulous planning ensures every petal and playlist is perfectly placed.",
-  },
-  {
-    title: "Birthdays",
-    icon: Cake,
-    image: "/birthday-service.jpg",
-    description: "Milestones deserve to be celebrated in style. We handle everything from themed decor to gourmet catering, letting you focus on making memories with your loved ones.",
-  },
-  {
-    title: "Corporate Meetings",
-    icon: Briefcase,
-    image: "/corporate-service.jpg",
-    description: "Impress your clients and inspire your team. We provide seamless professional execution for high-stakes meetings, product launches, and executive corporate gatherings.",
-  },
-  {
-    title: "Live Concerts",
-    icon: Music,
-    image: "/concert-service.jpg",
-    description: "High-energy production meets flawless logistics. We manage stage design, sound engineering, and crowd flow to create unforgettable auditory and visual experiences.",
-  },
+    {
+      title: "Exquisite Weddings",
+      icon: Ribbon,
+      image: "/wedding-service.jpg",
+      description: "From intimate garden ceremonies to grand ballroom galas, we curate weddings that are as unique as your love story. Our meticulous planning ensures every petal and playlist is perfectly placed.",
+      position: { top: "20%", left: "25%" } // Top Left Branch
+    },
+    {
+      title: "Birthdays",
+      icon: Cake,
+      image: "/birthday-service.jpg",
+      description: "Milestones deserve to be celebrated in style. We handle everything from themed decor to gourmet catering, letting you focus on making memories with your loved ones.",
+      position: { top: "15%", left: "75%" } // Top Right Branch
+    },
+    {
+      title: "Corporate Meetings",
+      icon: Briefcase,
+      image: "/corporate-service.jpg",
+      description: "Impress your clients and inspire your team. We provide seamless professional execution for high-stakes meetings, product launches, and executive corporate gatherings.",
+      position: { top: "45%", left: "15%" } // Bottom Left Branch
+    },
+    {
+      title: "Live Concerts",
+      icon: Music,
+      image: "/concert-service.jpg",
+      description: "High-energy production meets flawless logistics. We manage stage design, sound engineering, and crowd flow to create unforgettable auditory and visual experiences.",
+      position: { top: "40%", left: "85%" } // Bottom Right Branch
+    },
 ];
 
 export default function Home() {
@@ -248,87 +253,7 @@ export default function Home() {
       </section>
 
       {/* 3. OUR SERVICES (Futuristic Luxury Grid) */}
-      <section className="w-full py-36 px-6 bg-brand-light relative overflow-hidden">
-        {/* Futuristic Spatial Depth Layering */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-[radial-gradient(circle,rgba(212,175,55,0.03)_0%,transparent_70%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.015)_1px,transparent_1px)] bg-size-[24px_24px] opacity-70 pointer-events-none" />
-
-        <motion.div 
-          className="max-w-7xl mx-auto relative z-10"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerContainer}
-        >
-          {/* Header Block with Ultra-Modern Typography Alignment */}
-          <motion.div className="text-center mb-24 relative" variants={fadeInUp}>
-            <span className="inline-block text-brand-gold tracking-[0.4em] uppercase text-[10px] font-bold mb-4 px-3 py-1 bg-brand-navy/5 rounded-md border border-brand-gold/10">
-              Capabilities Matrix
-            </span>
-            <h2 className="text-4xl md:text-6xl mb-6 text-brand-navy font-serif tracking-tight font-medium">
-              Our Services
-            </h2>
-            
-            {/* Minimalist Neo-Luxury Structural Line */}
-            <div className="h-px w-32 bg-linear-to-r from-transparent via-brand-gold/50 to-transparent mx-auto relative">
-              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand-navy border border-brand-gold" />
-            </div>
-
-            <p className="mt-8 text-gray-500 font-light max-w-2xl mx-auto text-lg md:text-xl leading-relaxed tracking-wide">
-              Specializing in high-end event curation, elite strategic execution, and precision spatial management.
-            </p>
-          </motion.div>
-
-          {/* Interactive Responsive Grid Matrix */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, i) => (
-              <motion.div 
-                key={i} 
-                className="group bg-white/70 backdrop-blur-xl p-10 rounded-[2.5rem] border border-gray-100/80 flex flex-col items-start text-left transition-all duration-500 relative overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(212,175,55,0.08)] hover:border-brand-gold/30 hover:-translate-y-2"
-                variants={fadeInUp}
-              >
-                {/* Micro-glow localized radar dot (Sits in the upper-right corner) */}
-                <span className="absolute top-6 right-8 w-2 h-2 rounded-full bg-gray-200 transition-all duration-500 group-hover:bg-brand-gold group-hover:animate-pulse" />
-
-                {/* Cyber-Luxury Geometric Background Overlay */}
-                <div className="absolute inset-0 bg-linear-to-b from-transparent via-brand-light/10 to-brand-gold/1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
-                <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-[radial-gradient(circle,rgba(212,175,55,0.06)_0%,transparent_70%)] rounded-full transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:scale-125 pointer-events-none" />
-
-                {/* Structural Border Laser Trace Container */}
-                <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden pointer-events-none z-0">
-                  <div className="absolute bottom-0 left-0 h-0.5 w-full bg-linear-to-r from-transparent via-brand-gold/30 to-transparent transform translate-x-full group-hover:-translate-x-full transition-transform duration-1000 ease-in-out" />
-                </div>
-
-                {/* FIXED: Absolute Spatial Centering Hub */}
-                <div className="w-16 h-16 rounded-2xl bg-brand-navy mb-10 relative overflow-hidden shadow-lg border border-brand-navy transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-[0_10px_25px_rgba(10,25,47,0.3)] z-10">
-                  {/* Internal ambient sweep inside the icon box */}
-                  <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
-                  
-                  {/* Bulletproof Absolute Positioning Core for SVGs */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block transition-transform duration-500 group-hover:scale-110">
-                    <service.icon className="w-7 h-7 text-brand-gold block" />
-                  </div>
-                </div>
-
-                {/* Text Content Block */}
-                <div className="relative z-10 mt-auto">
-                  <span className="text-[11px] font-mono tracking-widest text-brand-gold/60 uppercase block mb-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
-                    // Service 0{i + 1}
-                  </span>
-                  
-                  <h3 className="text-2xl mb-4 font-serif text-brand-navy leading-tight tracking-tight transition-colors duration-300 group-hover:text-black">
-                    {service.title}
-                  </h3>
-                  
-                  <p className="text-gray-500 group-hover:text-gray-600 leading-relaxed font-light text-sm line-clamp-4 transition-colors duration-300">
-                    {service.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+     <ServicesTree services={services} />
 
     {/* 4. DEDICATED SERVICE SECTIONS (Bespoke Editorial Gallery) */}
       <section className="w-full bg-white relative overflow-hidden">
