@@ -288,11 +288,11 @@ export default function Contact() {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[9px] font-mono uppercase tracking-[0.2em] text-brand-navy/60 ml-1"> Email Address *</label>
+                  <label className="text-[9px] font-mono notranslate uppercase tracking-[0.2em] text-brand-navy/60 ml-1"> Email Address *</label>
                   <input 
-                    name="email" required type="email" placeholder="natnael@example.com" 
+                    name="email" required type="email" placeholder="natnael@gmail.com" 
                     value={email} onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full p-4 border font-sans text-sm rounded-xl bg-brand-light focus:outline-none transition-all ${errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-100 focus:ring-2 focus:ring-brand-gold/40 focus:bg-white'}`} 
+                    className={`w-full p-4 border font-sans notranslate text-sm rounded-xl bg-brand-light focus:outline-none transition-all ${errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-100 focus:ring-2 focus:ring-brand-gold/40 focus:bg-white'}`} 
                   />
                   {errors.email && <p className="text-red-500 text-[10px] font-mono flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.email}</p>}
                 </div>
