@@ -1,4 +1,3 @@
-// components/ServicesTree.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -16,7 +15,6 @@ interface ServiceItem {
   description: string;
   icon: LucideIcon;
   position: ServicePosition;
-  // image property removed as requested
 }
 
 interface ServicesTreeProps {
@@ -38,6 +36,9 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
     };
   }, [selectedService]);
 
+  const currentService = selectedService !== null ? services[selectedService] : null;
+  const SelectedIcon = currentService?.icon;
+
   return (
     <section className="w-full py-20 md:py-36 px-4 md:px-6 bg-brand-light relative overflow-hidden min-h-screen flex flex-col justify-center">
       {/* Background Ambience Layouts */}
@@ -48,10 +49,10 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
         {/* Architectural Section Header */}
         <motion.div 
           className="text-center mb-4 md:mb-8 relative w-full px-4"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
         >
           <span className="inline-block text-brand-gold tracking-[0.4em] uppercase text-[9px] md:text-[10px] font-bold mb-4 px-3 py-1 bg-brand-navy/5 rounded-md border border-brand-gold/10 shadow-[0_0_15px_rgba(200,161,83,0.1)]">
             Capabilities Matrix
@@ -86,6 +87,7 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
               </filter>
             </defs>
 
+            {/* Branch growth slowed down significantly to 4.5 seconds */}
             <motion.path
               d="M400,530 L400,200 C400,160 250,150 200,120 M400,200 C400,160 550,150 600,90 M400,380 C400,290 200,330 120,250 M400,380 C400,290 600,330 680,220"
               fill="none"
@@ -95,23 +97,23 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
               initial={{ pathLength: 0, opacity: 0 }}
               whileInView={{ pathLength: 1, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 2, ease: "easeInOut", delay: 0.3 }}
+              transition={{ duration: 4.5, ease: "easeInOut" }}
             />
 
             <g fill="#122244" filter="url(#potShadow)">
               <motion.path 
                 d="M 330,490 L 470,490 L 445,600 L 355,600 Z" 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, ease: "easeOut" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               />
               <motion.rect 
                 x="320" y="478" width="160" height="12" rx="3"
-                initial={{ opacity: 0, scaleX: 0.8 }}
+                initial={{ opacity: 0, scaleX: 0.9 }}
                 whileInView={{ opacity: 1, scaleX: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 style={{ transformOrigin: "center" }}
               />
             </g>
@@ -130,7 +132,14 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 1.2 + (i * 0.15), type: "spring", stiffness: 200 }}
+                // Nodes burst into view early (starting at 0.3s) with crisp spring dynamics,
+                // completely finishing their entries long before the branch completes its 4.5s draw.
+                transition={{ 
+                  delay: 0.3 + (i * 0.06), 
+                  type: "spring", 
+                  stiffness: 350, 
+                  damping: 18 
+                }}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setSelectedService(i)}
@@ -147,7 +156,7 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
       </div>
 
       <AnimatePresence>
-        {selectedService !== null && (
+        {selectedService !== null && currentService && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <motion.div
               className="absolute inset-0 bg-brand-navy/40 backdrop-blur-md"
@@ -173,9 +182,7 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
 
               <div className="p-8 md:p-10 pt-12 md:pt-14 relative bg-white flex flex-col">
                 <div className="w-14 h-14 rounded-2xl bg-brand-navy flex items-center justify-center mb-6 border border-brand-gold/30">
-                  {React.createElement(services[selectedService].icon, {
-                    className: "w-7 h-7 text-brand-gold",
-                  })}
+                  {SelectedIcon && <SelectedIcon className="w-7 h-7 text-brand-gold" />}
                 </div>
 
                 <span className="text-[10px] font-mono tracking-widest text-brand-gold uppercase block mb-2">
@@ -183,11 +190,11 @@ export default function ServicesTree({ services }: ServicesTreeProps) {
                 </span>
 
                 <h3 className="text-2xl md:text-4xl mb-4 font-serif text-brand-navy leading-tight tracking-tight">
-                  {services[selectedService].title}
+                  {currentService.title}
                 </h3>
 
                 <p className="text-gray-600 leading-relaxed font-light text-sm md:text-base mb-8">
-                  {services[selectedService].description}
+                  {currentService.description}
                 </p>
 
                 <div className="w-full flex justify-between items-center border-t border-gray-100 pt-5">
